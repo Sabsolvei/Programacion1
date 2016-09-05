@@ -23,3 +23,15 @@
 	<stdlib.h>
 	<string.h>
 
+1473111549 source:d:\progisabrina\programi\clase4\input\input.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1473111549 source:d:\progisabrina\programi\clase4\input\main.c
+	<stdio.h>
+	<stdlib.h>
+	"inc/input.h"
+
+1473111549 d:\progisabrina\programi\clase4\input\inc\input.h
+

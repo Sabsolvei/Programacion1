@@ -14,14 +14,20 @@
 */
 int getInt(int* input,char message[],char eMessage[], int lowLimit, int hiLimit)
 {
-    int r=-1;
-    int a=0;
+    int auxiliar;
+    int flag;
 
-    do
+    flag=scanf("%s",&auxiliar);
+    if(flag==0||auxiliar<lowLimit||auxiliar>hiLimit)
     {
-        printf("%s",message);
-        scanf("%d",&a);
-        *input=a;
+        printf("%s",eMessage);
+        return -1;
+    }
+    else
+    {
+        *input=auxiliar;
+        return 0;
+    }
 
         //if (*input>=lowLimit && *input<=hiLimit)
         //{
