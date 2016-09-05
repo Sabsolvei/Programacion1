@@ -15,31 +15,31 @@
 int getInt(int* input,char message[],char eMessage[], int lowLimit, int hiLimit)
 {
     int auxiliar;
-    int flag;
+    int flag=0;
 
-    flag=scanf("%s",&auxiliar);
-    if(flag==0||auxiliar<lowLimit||auxiliar>hiLimit)
+    do
     {
-        printf("%s",eMessage);
-        return -1;
+    printf("%s",message);
+    flag=scanf("%s",&auxiliar);
+    if(flag==1||auxiliar>lowLimit||auxiliar<hiLimit)
+    {
+        *input=auxiliar;
+
     }
     else
     {
-        *input=auxiliar;
-        return 0;
-    }
+        printf("%s",eM)
 
+    }
+    while(flag==0)
         //if (*input>=lowLimit && *input<=hiLimit)
         //{
-            r=0;
+
        /* }
         else
         {
             printf("%s",eMessage);
         }*/
-    }
-    while (r==-1);
-
     return 0;
 }
 
