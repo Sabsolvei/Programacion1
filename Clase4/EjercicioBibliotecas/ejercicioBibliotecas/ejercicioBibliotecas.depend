@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1473041888 source:d:\workspaceprogramacion\programacion_i\clase4\ejerciciobibliotecas\ejerciciobibliotecas\funciones.c
+	"funciones.h"
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1473041409 d:\workspaceprogramacion\programacion_i\clase4\ejerciciobibliotecas\ejerciciobibliotecas\funciones.h
+
+1473041675 source:d:\workspaceprogramacion\programacion_i\clase4\ejerciciobibliotecas\ejerciciobibliotecas\main.c
+	<stdio.h>
+	<stdlib.h>
+
