@@ -20,6 +20,11 @@ int main()
     int j;
     int cont=0;
 
+    for(i=0;i<E;i++)
+    {
+        dni[i]=-1;
+    }
+
     do
     {
         printf("\n1. Altas.\n2. Modificacion.\n3. Listar.\n4. Buscar por localidad.\n5. Buscar empleados con maximo sueldo.\n6. Buscar empleados con minimo sueldo.\n7. Salir.\n");
@@ -28,65 +33,73 @@ int main()
 
         switch(opcion)
         {
-        case 1:
+            case 1:
 
-            system("cls");
+                system("cls");
 
-            printf("Ingrese numero de documento: ");
-            scanf("%ld",&dni[cont]);
-            system("cls");
+                printf("Ingrese numero de documento: ");
+                scanf("%ld",&dni[cont]);
+                system("cls");
 
-            fflush(stdin);
-            printf("Ingrese Nombre/s y Apellido/s: ");
-            gets(nombreApellido[cont]);
-            system("cls");
+                fflush(stdin);
+                printf("Ingrese Nombre/s y Apellido/s: ");
+                gets(nombreApellido[cont]);
+                system("cls");
 
-            fflush(stdin);
-            printf("Ingrese domicilio: ");
-            gets(domicilio[cont]);
-            system("cls");
+                fflush(stdin);
+                printf("Ingrese domicilio: ");
+                gets(domicilio[cont]);
+                system("cls");
 
-            fflush(stdin);
-            printf("Ingrese localidad: ");
-            gets(localidad[cont]);
-            system("cls");
+                fflush(stdin);
+                printf("Ingrese localidad: ");
+                gets(localidad[cont]);
+                system("cls");
 
-            fflush(stdin);
-            printf("Ingrese edad: ");
-            scanf("%d",&edad[cont]);
-            system("cls");
+                fflush(stdin);
+                printf("Ingrese edad: ");
+                scanf("%d",&edad[cont]);
+                system("cls");
 
-            printf("Ingrese la categoria (A, B o C): ");
-            categoria[cont]=toupper(getche());
-            system("cls");
+                printf("Ingrese la categoria (A, B o C): ");
+                categoria[cont]=toupper(getche());
+                system("cls");
 
-            fflush(stdin);
-            printf("Ingrese la  cantidad de horas trabajadas: ");
-            scanf("%d",&hsTrabajadas[cont]);
-            system("cls");
+                fflush(stdin);
+                printf("Ingrese cantidad de horas trabajadas: ");
+                scanf("%d",&hsTrabajadas[cont]);
+                system("cls");
 
-            switch(categoria[cont])
-            {
-                case 'A':
-                    sueldoNeto[cont]= hsTrabajadas[cont]*50;
+               switch(categoria[cont])
+                    {
+                        case 'A':
+                            sueldoNeto[cont]= hsTrabajadas[cont]*50;
+                        break;
+
+                        case 'B':
+                            sueldoNeto[cont]= hsTrabajadas[cont]*30.5;
+                        break;
+
+                        case 'C':
+                            sueldoNeto[cont]= hsTrabajadas[cont]*20.67;
+                        break;
+                    }
+                system("cls");
+                cont++;
                 break;
-
-                case 'B':
-                    sueldoNeto[cont]= hsTrabajadas[cont]*30.5;
-                break;
-
-                case 'C':
-                    sueldoNeto[cont]= hsTrabajadas[cont]*20.67;
-                break;
-            }
-            system("cls");
-            cont++;
-
 
             case 3:
+
                 for(i=0;i<E;i++)
                 {
-                    printf("%ld\t%s\t%d\t%s\t%s\t%c\t%d\t%d",dni[i],nombreApellido[i],edad[i],localidad[i],domicilio[i],categoria[i],hsTrabajadas[i],sueldoNeto[i]);
+                    if(dni[i]!=-1)
+                    {
+                        printf("%ld\t%s\t%d\t%s\t%s\t%c\t%d\t%.2f\n",dni[i],nombreApellido[i],edad[i],localidad[i],domicilio[i],categoria[i],hsTrabajadas[i],sueldoNeto[i]);
+
+                    }
+                    system("pause");
+
+
                 }
 
             break;
