@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1473910347 source:d:\workspaceprogramacion\programacion_i\clase7\listaproductos\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+
