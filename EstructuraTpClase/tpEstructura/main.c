@@ -1,45 +1,43 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "Funciones.h"
+#define C 5
 
 #define VACIO '0'
 #define OCUPADO '1'
 #define LIBRE '2'
 
 
-struct pelicula
-{
-    int idPelicula;
-    char titulo[255];
-    int idDirector;
-    int idNacionalidad;
-    char idEstado;
-};
-
-struct Estado
-{
-    char idEstado;
-    char Descripcion[50];
-};
-
-struct Director
-{
-    int idDirector;
-    char nombre[50];
-    int idNacionalidad;
-    char idEstado;
-};
-
-struct Nacionalidad
-{
-    int idNacionalidad;
-    char descripcion[50];
-    char idEstado;
-};
-
-
-
 int main()
 {
+
+/*    int opcion;
+    eMenu menu;
+    strcpy(menu.opciones, "1. Ingrese pelicula");
+    strcpy(menu.error,"Error");
+    menu.desde=1;
+    menu.hasta=8;
+
+    opcion=menu(opciones);
+
+
+
+*/
+    eDirector director[C];
+    ePelicula pelicula[C];
+
+    hardcodeo(pelicula,director);
+
+  return 0;
+
+}
+
+
+/*
+
+
+
+
 
     int i;
 
@@ -84,14 +82,9 @@ int main()
 
     peli1[i].idEstado = OCUPADO;
 
-    //printf("%c",peli1[0].idEstado);*/
+    //printf("%c",peli1[0].idEstado);
+
+    */
 
 
-
-
-
-
-  return 0;
-
-}
 
