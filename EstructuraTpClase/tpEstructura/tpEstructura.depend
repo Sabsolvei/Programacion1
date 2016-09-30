@@ -3,3 +3,14 @@
 	<stdio.h>
 	<stdlib.h>
 
+1475276227 source:d:\estructuratpclase\tpestructura\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Funciones.h"
+
+1475276287 d:\estructuratpclase\tpestructura\funciones.h
+
+1475276541 source:d:\estructuratpclase\tpestructura\funciones.c
+	<stdio.h>
+	"Funciones.h"
+

@@ -1,18 +1,18 @@
 typedef struct
 {
-    int idDir;
-    int cantidad;
-
-}ePeliculaDirector;
-
-
-typedef struct
-{
-    char opciones[200];
+    char menu[1000];
     char error[100];
     int desde;
     int hasta;
+
 }eMenu;
+
+typedef struct
+{
+    int idDirector;
+    int cantidad;
+
+}ePeliculaDirector;
 
 typedef struct
 {
@@ -47,5 +47,7 @@ typedef struct
 
 }eNacionalidad;
 
-int menu (eMenu opciones);
-int hardcodeo (ePelicula pelicula[],eDirector director[]);
+int validarMenu (eMenu opciones);
+int hardcodeo (ePelicula pelicula[],eDirector director[], int C);
+int listar (ePelicula pelicula[],int C,int id);
+void BuscarDirector (ePelicula pelicula[],eDirector director[],int C);

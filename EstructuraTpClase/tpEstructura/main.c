@@ -11,22 +11,54 @@
 int main()
 {
 
-/*    int opcion;
-    eMenu menu;
-    strcpy(menu.opciones, "1. Ingrese pelicula");
-    strcpy(menu.error,"Error");
-    menu.desde=1;
-    menu.hasta=8;
-
-    opcion=menu(opciones);
-
-
-
-*/
+    int opcion=0;
+    eMenu opciones;
+    strcpy(opciones.menu,"1. Agregar un director.\n2. Bajar director.\n3. Agregar una pelicula. \n4. Modificar una pelicula. \n5.Borrar una pelicula.\n6. Informar los directores con mas peliculas.\n7. Informar las peliculas con mas directores.\n8. Listar peliculas\n.9. Salir.\nINGRESE UNA OPCION: ");
+    strcpy(opciones.error,"Ingreso una opcion invalida. Desea continuar? s/n: ");
+    opciones.desde=1;
+    opciones.hasta=9;
     eDirector director[C];
     ePelicula pelicula[C];
+    hardcodeo(pelicula,director,C);
+    opcion=validarMenu(opciones);
 
-    hardcodeo(pelicula,director);
+    switch (opcion)
+    {
+        case 1:
+            break;
+
+        case 2:
+            break;
+
+        case 3:
+            break;
+
+        case 4:
+            break;
+
+        case 5:
+            break;
+
+        case 6:
+
+            BuscarDirector(pelicula,director,C);
+
+            break;
+
+        case 7:
+            break;
+
+        case 8:
+            break;
+
+        case 9:
+            break;
+
+    }
+
+
+
+
 
   return 0;
 
@@ -35,12 +67,7 @@ int main()
 
 /*
 
-
-
-
-
     int i;
-
     for(i=0;i<2;i++)
 
     {
