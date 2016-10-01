@@ -28,6 +28,7 @@ typedef struct
 {
     int idEstado;
     char Descripcion[50];
+
 }eEstado;
 
 typedef struct

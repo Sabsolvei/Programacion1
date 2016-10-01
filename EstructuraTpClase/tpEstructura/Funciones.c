@@ -58,7 +58,7 @@ int hardcodeo (ePelicula pelicula[],eDirector director[],int C)
 int listar (ePelicula pelicula[],int C,int id)
 {
     int i;
-    int contador;
+    int contador=0;
     for(i=0;i<C;i++)
     {
         if(pelicula[i].idDirector==id)
@@ -80,12 +80,10 @@ void BuscarDirector (ePelicula pelicula[],eDirector director[],int C)
         cantidadAux=listar (pelicula,C,director[i].idDirector);
         auxiliar[i].idDirector=director[i].idDirector;
         auxiliar[i].cantidad=cantidadAux;
-
     }
-
+        printf("Id Director Cantidad\n");
+        printf("%d      %d",auxiliar[i].idDirector, auxiliar[i].cantidad);
 }
-
-ePeliculaDirector aux[1000];
 
 
 /*
