@@ -1,31 +1,20 @@
 #include <stdio.h>
 #include "Funciones.h"
 
-int validarMenu (eMenu opciones)
+int validarMenu (char menu[], char mensaje[],eValidar strLongitud)
 {
     int opcion;
     char respuesta='s';
+    int retorno;
 
-    do
-    {
-        printf(opciones.menu);
-        fflush(stdin);
-        scanf("%d",&opcion);
-
-        if(opcion>=opciones.desde && opcion<=opciones.hasta)
+        if(getInt(mensaje,strLongitud.buffer,strLongitud.minimo,strLongitud.maximo))
         {
-            break;
+            opcion=atoi(strLongitud.buffer);
         }
         else
         {
-            system("cls");
-            printf("%s",opciones.error);
-            fflush(stdin);
-            scanf("%c",&respuesta);
             opcion=-1;
         }
-    }
-    while(respuesta=='s');
 
     return opcion;
 }
@@ -176,29 +165,24 @@ int encontrarEspacioLibreDirector (eDirector director[],int D)
     return espLibre;
 }
 
-int altaPelicula (ePelicula pelicula[], eDirector director[],int pos,int estado, int idPMayor, int C)
+int altaPelicula (ePelicula pelicula[], eDirector director[],int pos,int estado, int idPMayor, int C, int D, eValidar strLongitud)
 {
     int i=0;
     idPMayor++;
-    printf("Ingrese Titulo: ");
-    fflush(stdin);
-    gets(pelicula[pos].titulo);
-    system("cls");
-    for(i=0;i<C;i++)
+    strLongitud.longitud=255;
+    if(getString("Ingrese el titulo: ",strLongitud.buffer, strLongitud.longitud))
     {
-        if(director[i].idEstado==1)
-            printf("%d --> %s\n",director[i].idDirector,director[i].nombre);
+        strcpy(pelicula[pos].titulo,strLongitud.buffer);
     }
-    printf("Ingrese Id Director: ");
-    fflush(stdin);
-    scanf("%d",&pelicula[pos].idDirector);
     system("cls");
-    printf("Ingrese nacionalidad: ");
-    fflush(stdin);
-    gets(pelicula[pos].nacionalidad);
+/*
+    listarDirectores (director, D);
+    pelicula[pos].idDirector=getInt("Ingrese Id Director: ");
+    system("cls");
+    getStringLetras("Ingrese nacionalidad: ",pelicula[pos].nacionalidad);
     system("cls");
     pelicula[pos].idEstado=estado;
-
+*/
     return idPMayor;
 }
 
@@ -258,40 +242,37 @@ int buscarIdDirector (eDirector director[],int D,int idDirector)
     return pos;
 }
 
-
 void modificarPelicula (ePelicula pelicula[],int pos)
 {
     int seguir = 's';
-    eMenu opciones;
+    char menu [255];
     int opcion;
-    strcpy(opciones.menu,"1. Titulo.\n2. Año.\n3. Nacionalidad.\n4. Id director.\n5. Salir.\nIngrese el campo que desea modificar: ");
-    strcpy(opciones.error,"Ingreso una opcion invalida. Desea continuar? s/n: ");
-    opciones.desde = 1;
-    opciones.hasta = 5;
+    menu="1. Titulo.\n2. Año.\n3. Nacionalidad.\n4. Id director.\n5. Salir.\n");
+    //strcpy(opciones.error,"Ingreso una opcion invalida. Desea continuar? s/n: ");
+    //opciones.desde = 1;
+    //opciones.hasta = 5;
+    char tituloAux[255];
 
     do
     {
-        opcion = validarMenu (opciones);
+        opcion = getInt ();
 
         switch (opcion)
         {
         case 1:
-            printf("Ingrese el nuevo Titulo: ");
-            fflush(stdin);
-            gets(pelicula[pos].titulo);
+            getString("Ingrese el nuevo titulo: ",pelicula[pos].titulo);
             break;
+
         case 2:
-            printf("Ingrese el nuevo Año: ");
-            scanf("%d",&pelicula[pos].anio);
+            pelicula[pos].anio=getInt("Ingrese el nuevo anio: ");
             break;
+
         case 3:
-            printf("Ingrese la nueva nacionalidad: ");
-            fflush(stdin);
-            gets(pelicula[pos].nacionalidad);
+            getStringLetras("Ingrese la nueva nacionalidad: ",pelicula[pos].nacionalidad);
             break;
+
         case 4:
-            printf("Ingrese el nuevo Id Director: ");
-            scanf("%d",&pelicula[pos].idDirector);
+            pelicula[pos].idDirector=getInt("Ingrese el nuevo Id Director: ");
             break;
         case 5:
             seguir = 'n';
@@ -315,24 +296,33 @@ int altaDirector (eDirector director[],int pos,int estado, int idDMayor, int D)
     int flag=1;
     int resultado;
     char nombreAux[50];
+    int validar;
     idDMayor++;
-    system("cls");
+
     do
     {
-        printf("Ingrese Nombre: ");
-        fflush(stdin);
-        gets(nombreAux);
-        resultado=verificarNombre (director, D, nombreAux);
-        if(resultado==-1)
+        system("pause");
+        system("cls");
+        validar=(getStringLetras("Ingrese Nombre: ",nombreAux));
+        if(validar==1)
         {
-            continue;
+            resultado=verificarNombre (director, D, nombreAux);
+            if(resultado==-1)
+            {
+                continue;
+            }
+            else
+            {
+                strcpy(director[pos].nombre,nombreAux);
+                flag=0;
+                break;
+            }
         }
         else
         {
-            strcpy(director[pos].nombre,nombreAux);
-            flag=0;
-            break;
-        };
+            printf("El nombre es invalido.\n");
+        }
+
     }while(flag==1);
 
     system("cls");
@@ -372,7 +362,152 @@ int verificarNombre (eDirector director[], int D, char nombreAux[])
 }
 
 
-//printf("%d-%d-%d",fecha[i].dia,fecha[i].mes,fecha[i].anio);
+/**
+ * \brief Solicita un número al usuario y devuelve el resultado
+ * \param mensaje Es el mensaje a ser mostrado
+ * \return El número ingresado por el usuario
+ *
+ */
+int getInt(char mensaje[],char buffer[],int minimo, int maximo)
+{
+    int retorno=0;
+    char seguir='s';
+    int auxiliar;
+    do
+    {
+        printf("%s",mensaje);
+        auxiliar=atoi(buffer);
+        if(auxiliar>=minimo && auxiliar<=maximo)
+        {
+            retorno=1;
+            seguir='n';
+        }
+        else
+        {
+            printf("Dato ingresado incorrecto. Desea continuar?s/n: ");
+            scanf("%c",seguir);
+        }
+    }
+    while(seguir=='s');
+
+    return retorno;
+}
+
+/**
+ * \brief Solicita un texto al usuario y lo devuelve
+ * \param mensaje Es el mensaje a ser mostrado
+ * \param input Array donde se cargará el texto ingresado
+ * \return void
+ */
+int getString(char mensaje[],char buffer[], int longitud)
+{
+    int flag=0;
+    do
+    {
+        system("cls");
+        printf("%s", mensaje);
+        scanf ("%s", buffer);
+        if(strlen(buffer)<=longitud)
+        {
+            flag=1;
+        }
+        else
+        {
+            printf("El valor ingresado es incorrecto.\n")
+        }
+    }
+    while(flag==0);
+
+    return flag;
+}
+/**
+ * \brief Solicita un texto al usuario y lo devuelve
+ * \param mensaje Es el mensaje a ser mostrado
+ * \param input Array donde se cargará el texto ingresado
+ * \param strLongitud para verificar longitud del array
+ * \return 1 si el texto contiene solo letras
+ */
+int getStringLetras(char mensaje[], char buffer[], int longitud)
+{
+    if(getString(mensaje,buffer,longitud)==1)
+    {
+       if(esSoloLetras(buffer))
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+/**
+ * \brief Verifica si el valor recibido contiene solo letras
+ * \param str Array con la cadena a ser analizada
+ * \return 1 si contiene solo ' ' y letras y 0 si no lo es
+ *
+ */
+int esSoloLetras(char str[])
+{
+   int i=0;
+   while(str[i] != '\0')
+   {
+       if((str[i] != ' ') && (str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z'))
+           return 0;
+       i++;
+   }
+   return 1;
+}
+
+
+int validarRangoEdad(eValidar cadena)
+{
+    int edad;
+    edad=atoi(cadena.buffer);
+    if(edad>=cadena.minimo && edad<=cadena.maximo)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int verificarDNI(eValidar cadena)
+{
+    int dni;
+    if((strlen(cadena.buffer))==8)
+    {
+        dni=atoi(cadena.buffer);
+
+        if (dni>=cadena.minimo && dni<=cadena.maximo)
+        {
+          return 1;
+        }
+    }
+    return 0;
+}
+
+/*
+
+int validarStr(eValidar cadena)
+{
+    int i = 0;
+    char letra;
+
+    while(cadena.buffer[i] != '\0')
+    {
+        letra=(char)cadena.buffer[i];
+        if(!isalpha(letra))
+        {
+            return 0;
+        }
+       i++;
+    }
+    return 1;
+}
+*/
+
+
 
 
 
