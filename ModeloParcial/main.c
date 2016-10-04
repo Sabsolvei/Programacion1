@@ -13,7 +13,7 @@ int main()
 {
     eDirector director[D];
     ePelicula pelicula[C];
-    eValidar strLongitud;
+    //eValidar strLongitud;
     ePeliculaCantidad peliculaCantidad[D];
     int pos=0;
     int idDMayor=0;
@@ -21,11 +21,11 @@ int main()
     int idDirector=0;
     char seguir='s';
     int opcion=0;
-
+    char buffer[4000];
     char menu[]= "1. Agregar una pelicula.\n2. Modificar una pelicula.\n3. Eliminar una pelicula.\n4. Agregar un director.\n5. Eliminar director.\n6. Informar los directores con mas peliculas.\n7. Informar las peliculas con mas directores.\n8. Listar peliculas\n9. Salir.\n";
     char mensaje[]="Ingrese una opcion: ";
-    strLongitud.minimo=1;
-    strLongitud.maximo=9;
+    //strLongitud.minimo=1;
+    //strLongitud.maximo=9;
     //strcpy(opciones.error,"Ingreso una opcion invalida. Desea continuar? s/n: ");
     //opciones.desde=1;
     //opciones.hasta=9;
@@ -40,9 +40,9 @@ int main()
         system("pause");
         system("cls");
         printf("%s",menu);
-        if(getInt(mensaje,strLongitud.buffer,1,9))
+        if(getInt(mensaje,buffer,1,9))
         {
-            opcion = atoi(strLongitud.buffer);
+            opcion = atoi(buffer);
 
             switch (opcion)
             {
@@ -51,7 +51,7 @@ int main()
 
                     if(pos>=0)
                     {
-                        if(altaPelicula(pelicula,director,pos,C,D,strLongitud))
+                        if(altaPelicula(pelicula,director,pos,C,D,buffer))
                         {
                             printf("Pelicula agregada con exito.\n");
                         }
@@ -65,13 +65,13 @@ int main()
                 case 2://MODIFICAR PELICULA
                     system("cls");
                     listarPeliculas (pelicula,C);
-                    if(getInt("Ingrese el Id Pelicula que desea modificar: ",strLongitud.buffer, 1, 20))
+                    if(getInt("Ingrese el Id Pelicula que desea modificar: ",buffer, 1, 20))
                     {
-                        idPelicula=atoi(strLongitud.buffer);
+                        idPelicula=atoi(buffer);
                         pos = buscarIdPelicula (pelicula, C, idPelicula);
                         if(pos >= 0)
                         {
-                            if(modificarPelicula (pelicula,pos,strLongitud))
+                            if(modificarPelicula (pelicula,pos,buffer))
                             {
                                 printf("Pelicula modificada con exito\n");
                             }
@@ -83,22 +83,19 @@ int main()
                 case 3://BAJA PELICULA
                     system("cls");
                     listarPeliculas (pelicula,C);
-                    printf("Ingrese el Id Pelicula que desea borrar: ");
-                    scanf("%d",&idPelicula);
-
-                    pos=buscarIdPelicula (pelicula,C,idPelicula);
-
-                    if(pos>=0)
+                    if(getInt("Ingrese el Id Pelicula que desea borrar: ",buffer,1,20))
                     {
-                        system("cls");
-                        eliminarPelicula (pelicula,BAJA,pos);
-                        printf("Pelicula eliminada con exito\n");
-                    }
-                    else
-                    {
-                        printf("El id ingresado no corresponde a una pelicula vigente.\n");
-                    }
+                        idPelicula=atoi(buffer);
 
+                        pos=buscarIdPelicula(pelicula,C,idPelicula);
+
+                        if(pos>=0)
+                        {
+                            system("cls");
+                            eliminarPelicula (pelicula,BAJA,pos);
+                            printf("Pelicula eliminada con exito\n");
+                        }
+                    }
                     break;
 
                 case 4: //ALTA DIRECTOR

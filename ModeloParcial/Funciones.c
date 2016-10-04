@@ -147,15 +147,16 @@ int encontrarEspacioLibreDirector (eDirector director[],int D)
     return espLibre;
 }
 
-int altaPelicula (ePelicula pelicula[], eDirector director[],int pos,int C, int D, eValidar strLongitud)
+int altaPelicula (ePelicula pelicula[], eDirector director[],int pos,int C, int D, char buffer[])
 {
     int i=0;
     int id;
+    int idMayor=0;
     int seguir=1;
 
-    if(getString("Ingrese el titulo: ",strLongitud.buffer, 255))
+    if(getString("Ingrese el titulo: ",buffer, 255))
     {
-        strcpy(pelicula[pos].titulo,strLongitud.buffer);
+        strcpy(pelicula[pos].titulo,buffer);
     }
     else { seguir=0; }
 
@@ -163,9 +164,9 @@ int altaPelicula (ePelicula pelicula[], eDirector director[],int pos,int C, int 
 
     if(seguir==1)
     {
-        if(getInt("Ingrese Año: ",strLongitud.buffer,1900,2017))
+        if(getInt("Ingrese Año: ",buffer,1900,2017))
         {
-            pelicula[pos].anio= atoi(strLongitud.buffer);
+            pelicula[pos].anio= atoi(buffer);
         }
         else { seguir=0; }
     }
@@ -175,9 +176,9 @@ int altaPelicula (ePelicula pelicula[], eDirector director[],int pos,int C, int 
     if(seguir==1)
     {
         listarDirectores (director, D);
-        if(getInt("Ingrese Id Director: ",strLongitud.buffer,1,5))
+        if(getInt("Ingrese Id Director: ",buffer,1,5))
         {
-            pelicula[pos].idDirector= atoi(strLongitud.buffer);
+            pelicula[pos].idDirector= atoi(buffer);
         }
         else { seguir=0; }
     }
@@ -185,31 +186,34 @@ int altaPelicula (ePelicula pelicula[], eDirector director[],int pos,int C, int 
     system("cls");
     if(seguir==1)
     {
-        if(getStringLetras("Ingrese nacionalidad: ",strLongitud.buffer, 20))
+        if(getStringLetras("Ingrese nacionalidad: ",buffer, 20))
         {
-            strcpy(pelicula[pos].nacionalidad,strLongitud.buffer);
+            strcpy(pelicula[pos].nacionalidad,buffer);
         }
         else { seguir=0; }
     }
     if(seguir==1)
     {
         pelicula[pos].idEstado=1;
-        id=buscarIdMayor(pelicula,C);
-        pelicula[pos].idPelicula=id+1;
+        buscarIdMayor(pelicula,C,&idMayor);
+        pelicula[pos].idPelicula=idMayor+1;
     }
     return seguir;
 }
 
-int buscarIdMayor (ePelicula pelicula[], int C)
+int buscarIdMayor (ePelicula pelicula[], int C, int *idMayor)
 {
     int i=0;
-    int idMayor=0;
     for(i=0;i<C;i++)
     {
-        if(pelicula[i].idPelicula>idMayor)
-            idMayor=pelicula[i].idPelicula;
+        if(pelicula[i].idEstado==0 || pelicula[i].idEstado==1)
+        {
+            if(pelicula[i].idPelicula>*idMayor)
+            {
+                *idMayor = pelicula[i].idPelicula;
+            }
+        }
     }
-    return idMayor;
 }
 
 
@@ -251,6 +255,11 @@ int buscarIdPelicula (ePelicula pelicula[],int C,int idPelicula)
             break;
         }
     }
+    if(pos==-1)
+    {
+        printf("El id ingresado no corresponde a una pelicula vigente.\n");
+    }
+
     return pos;
 }
 
@@ -269,50 +278,73 @@ int buscarIdDirector (eDirector director[],int D,int idDirector)
     return pos;
 }
 
-int modificarPelicula (ePelicula pelicula[],int pos,eValidar strLongitud)
+int modificarPelicula (ePelicula pelicula[],int pos,char buffer[])
 {
     int seguir = 's';
-    char mensaje[]= "Ingrese una opcion: ";
+    //char mensaje[]= "Ingrese una opcion: ";
     int opcion;
-    int retorno=1;
-    char menu[]="1. Titulo.\n2. Año.\n3. Nacionalidad.\n4. Id director.\n5. Salir.\n";
+    int retorno=0;
+    char menu[]="1. Titulo.\n2. Año.\n3. Nacionalidad.\n4. Id director.\n5. Salir.\nIngrese una opcion: ";
     char tituloAux[255];
-    if(getInt(menu,strLongitud.buffer,1,5))
+
+    do
     {
-        opcion=atoi(strLongitud.buffer);
-        do
+        system("pause");
+        system("cls");
+        if(getInt(menu,buffer,1,5))
         {
+            retorno=1;
+            opcion=atoi(buffer);
+
             switch (opcion)
             {
             case 1:
-                if(getString("Ingrese el nuevo titulo: ",strLongitud.buffer,20))
-                    strcpy(pelicula[pos].titulo,strLongitud.buffer);
+                system("cls");
+                if(getString("Ingrese el nuevo titulo: ",buffer,255))
+                {
+                    strcpy(pelicula[pos].titulo,buffer);
+                    printf("Titulo modificado con exito.\n");
+                }
+                else { printf("El titulo no fue modificado.\n"); }
                 break;
 
             case 2:
-                if(getInt("Ingrese el nuevo anio: ",strLongitud.buffer,1900,2017))
-                    pelicula[pos].anio=atoi(strLongitud.buffer);
+                system("cls");
+                if(getInt("Ingrese el nuevo anio: ",buffer,1900,2017))
+                {
+                    pelicula[pos].anio=atoi(buffer);
+                    printf("Anio modificado con exito.\n");
+                }
+                else { printf("El anio no fue modificado.\n"); }
                 break;
 
             case 3:
-                if(getStringLetras("Ingrese la nueva nacionalidad: ",strLongitud.buffer,20))
-                    strcpy(pelicula[pos].nacionalidad,strLongitud.buffer);
+                system("cls");
+                if(getStringLetras("Ingrese la nueva nacionalidad: ",buffer,20))
+                {
+                    strcpy(pelicula[pos].nacionalidad,buffer);
+                    printf("Nacionalidad modificada con exito.\n");
+                }
+                else { printf("La nacionalidad no fue modificada.\n"); }
                 break;
 
             case 4:
-                if(getInt("Ingrese el nuevo Id Director: ",strLongitud.buffer,1,20))
-                    pelicula[pos].idDirector=atoi(strLongitud.buffer);
+                system("cls");
+                if(getInt("Ingrese el nuevo Id Director: ",buffer,1,5))
+                {
+                    pelicula[pos].idDirector=atoi(buffer);
+                    printf("Id Director modificado con exito.\n");
+                }
+                else { printf("Id Director no fue modificado.\n"); }
                 break;
+
             case 5:
                 seguir = 'n';
                 break;
             }
-        } while (seguir == 's');
-    }
-    else
-    {
-        retorno=0;
-    }
+        }
+    } while (seguir == 's');
+
     return retorno;
 }
 

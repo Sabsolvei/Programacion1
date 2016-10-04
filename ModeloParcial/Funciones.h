@@ -60,10 +60,10 @@ void MostrarDirConMasPelis (ePeliculaCantidad peliculaCantidad[], int D);
 int encontrarEspacioLibrePelicula (ePelicula pelicula[],int C);
 int encontrarEspacioLibreDirector (eDirector director[],int C);
 
-int altaPelicula (ePelicula pelicula[], eDirector director[],int pos,int C, int D, eValidar strLongitud);
-int buscarIdMayor (ePelicula pelicula[], int C);
+int altaPelicula (ePelicula pelicula[], eDirector director[],int pos,int C, int D, char buffer[]);
+int buscarIdMayor (ePelicula pelicula[], int C, int *idMayor);
 int verificarNombre (eDirector director[], int D, char nombreAux[]);
-int modificarPelicula (ePelicula pelicula[],int pos,eValidar strLongitud);
+int modificarPelicula (ePelicula pelicula[],int pos,char buffer[]);
 
 void listarPeliculas (ePelicula pelicula[], int C);
 void listarDirectores (eDirector director[], int D);
