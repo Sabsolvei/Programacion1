@@ -14,20 +14,16 @@ int main()
     eDirector director[D];
     ePelicula pelicula[C];
     eValidar strLongitud;
-    //eMenu opciones;
     ePeliculaCantidad peliculaCantidad[D];
     int pos=0;
-    int idPMayor=0;
     int idDMayor=0;
     int idPelicula=0;
     int idDirector=0;
     char seguir='s';
     int opcion=0;
-    char mensaje[100];
-    char menu[255];
 
-    menu= "1. Agregar una pelicula.\n2. Modificar una pelicula.\n3. Eliminar una pelicula.\n4. Agregar un director.\n5. Eliminar director.\n6. Informar los directores con mas peliculas.\n7. Informar las peliculas con mas directores.\n8. Listar peliculas\n9. Salir.\n");
-    mensaje="Ingrese una opcion: "
+    char menu[]= "1. Agregar una pelicula.\n2. Modificar una pelicula.\n3. Eliminar una pelicula.\n4. Agregar un director.\n5. Eliminar director.\n6. Informar los directores con mas peliculas.\n7. Informar las peliculas con mas directores.\n8. Listar peliculas\n9. Salir.\n";
+    char mensaje[]="Ingrese una opcion: ";
     strLongitud.minimo=1;
     strLongitud.maximo=9;
     //strcpy(opciones.error,"Ingreso una opcion invalida. Desea continuar? s/n: ");
@@ -43,8 +39,10 @@ int main()
     {
         system("pause");
         system("cls");
-        if(validarMenu(menu,mensaje,strLongitud))
+        printf("%s",menu);
+        if(getInt(mensaje,strLongitud.buffer,1,9))
         {
+            opcion = atoi(strLongitud.buffer);
 
             switch (opcion)
             {
@@ -53,7 +51,10 @@ int main()
 
                     if(pos>=0)
                     {
-                        idPMayor=altaPelicula(pelicula,director,pos,OCUPADO,idPMayor,C,D);
+                        if(altaPelicula(pelicula,director,pos,C,D,strLongitud))
+                        {
+                            printf("Pelicula agregada con exito.\n");
+                        }
                     }
                     else
                     {
@@ -64,16 +65,17 @@ int main()
                 case 2://MODIFICAR PELICULA
                     system("cls");
                     listarPeliculas (pelicula,C);
-                    idPelicula=getInt("Ingrese el Id Pelicula que desea modificar: ");
-
-                    pos=buscarIdPelicula (pelicula,C,idPelicula);
-                    if(pos>=0)
+                    if(getInt("Ingrese el Id Pelicula que desea modificar: ",strLongitud.buffer, 1, 20))
                     {
-                        modificarPelicula (pelicula,pos);
-                    }
-                    else
-                    {
-                        printf("El id ingresado no existe.\n");
+                        idPelicula=atoi(strLongitud.buffer);
+                        pos = buscarIdPelicula (pelicula, C, idPelicula);
+                        if(pos >= 0)
+                        {
+                            if(modificarPelicula (pelicula,pos,strLongitud))
+                            {
+                                printf("Pelicula modificada con exito\n");
+                            }
+                        }
                     }
 
                     break;

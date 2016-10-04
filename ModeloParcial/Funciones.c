@@ -1,24 +1,6 @@
 #include <stdio.h>
 #include "Funciones.h"
 
-int validarMenu (char menu[], char mensaje[],eValidar strLongitud)
-{
-    int opcion;
-    char respuesta='s';
-    int retorno;
-
-        if(getInt(mensaje,strLongitud.buffer,strLongitud.minimo,strLongitud.maximo))
-        {
-            opcion=atoi(strLongitud.buffer);
-        }
-        else
-        {
-            opcion=-1;
-        }
-
-    return opcion;
-}
-
 void inicializarEstadoPelicula (ePelicula pelicula[],int C,int estado)
 {
     int i;
@@ -165,26 +147,71 @@ int encontrarEspacioLibreDirector (eDirector director[],int D)
     return espLibre;
 }
 
-int altaPelicula (ePelicula pelicula[], eDirector director[],int pos,int estado, int idPMayor, int C, int D, eValidar strLongitud)
+int altaPelicula (ePelicula pelicula[], eDirector director[],int pos,int C, int D, eValidar strLongitud)
 {
     int i=0;
-    idPMayor++;
-    strLongitud.longitud=255;
-    if(getString("Ingrese el titulo: ",strLongitud.buffer, strLongitud.longitud))
+    int id;
+    int seguir=1;
+
+    if(getString("Ingrese el titulo: ",strLongitud.buffer, 255))
     {
         strcpy(pelicula[pos].titulo,strLongitud.buffer);
     }
+    else { seguir=0; }
+
     system("cls");
-/*
-    listarDirectores (director, D);
-    pelicula[pos].idDirector=getInt("Ingrese Id Director: ");
+
+    if(seguir==1)
+    {
+        if(getInt("Ingrese Año: ",strLongitud.buffer,1900,2017))
+        {
+            pelicula[pos].anio= atoi(strLongitud.buffer);
+        }
+        else { seguir=0; }
+    }
+
     system("cls");
-    getStringLetras("Ingrese nacionalidad: ",pelicula[pos].nacionalidad);
+
+    if(seguir==1)
+    {
+        listarDirectores (director, D);
+        if(getInt("Ingrese Id Director: ",strLongitud.buffer,1,5))
+        {
+            pelicula[pos].idDirector= atoi(strLongitud.buffer);
+        }
+        else { seguir=0; }
+    }
+
     system("cls");
-    pelicula[pos].idEstado=estado;
-*/
-    return idPMayor;
+    if(seguir==1)
+    {
+        if(getStringLetras("Ingrese nacionalidad: ",strLongitud.buffer, 20))
+        {
+            strcpy(pelicula[pos].nacionalidad,strLongitud.buffer);
+        }
+        else { seguir=0; }
+    }
+    if(seguir==1)
+    {
+        pelicula[pos].idEstado=1;
+        id=buscarIdMayor(pelicula,C);
+        pelicula[pos].idPelicula=id+1;
+    }
+    return seguir;
 }
+
+int buscarIdMayor (ePelicula pelicula[], int C)
+{
+    int i=0;
+    int idMayor=0;
+    for(i=0;i<C;i++)
+    {
+        if(pelicula[i].idPelicula>idMayor)
+            idMayor=pelicula[i].idPelicula;
+    }
+    return idMayor;
+}
+
 
 void listarPeliculas (ePelicula pelicula[], int C)
 {
@@ -242,43 +269,51 @@ int buscarIdDirector (eDirector director[],int D,int idDirector)
     return pos;
 }
 
-void modificarPelicula (ePelicula pelicula[],int pos)
+int modificarPelicula (ePelicula pelicula[],int pos,eValidar strLongitud)
 {
     int seguir = 's';
-    char menu [255];
+    char mensaje[]= "Ingrese una opcion: ";
     int opcion;
-    menu="1. Titulo.\n2. Año.\n3. Nacionalidad.\n4. Id director.\n5. Salir.\n");
-    //strcpy(opciones.error,"Ingreso una opcion invalida. Desea continuar? s/n: ");
-    //opciones.desde = 1;
-    //opciones.hasta = 5;
+    int retorno=1;
+    char menu[]="1. Titulo.\n2. Año.\n3. Nacionalidad.\n4. Id director.\n5. Salir.\n";
     char tituloAux[255];
-
-    do
+    if(getInt(menu,strLongitud.buffer,1,5))
     {
-        opcion = getInt ();
-
-        switch (opcion)
+        opcion=atoi(strLongitud.buffer);
+        do
         {
-        case 1:
-            getString("Ingrese el nuevo titulo: ",pelicula[pos].titulo);
-            break;
+            switch (opcion)
+            {
+            case 1:
+                if(getString("Ingrese el nuevo titulo: ",strLongitud.buffer,20))
+                    strcpy(pelicula[pos].titulo,strLongitud.buffer);
+                break;
 
-        case 2:
-            pelicula[pos].anio=getInt("Ingrese el nuevo anio: ");
-            break;
+            case 2:
+                if(getInt("Ingrese el nuevo anio: ",strLongitud.buffer,1900,2017))
+                    pelicula[pos].anio=atoi(strLongitud.buffer);
+                break;
 
-        case 3:
-            getStringLetras("Ingrese la nueva nacionalidad: ",pelicula[pos].nacionalidad);
-            break;
+            case 3:
+                if(getStringLetras("Ingrese la nueva nacionalidad: ",strLongitud.buffer,20))
+                    strcpy(pelicula[pos].nacionalidad,strLongitud.buffer);
+                break;
 
-        case 4:
-            pelicula[pos].idDirector=getInt("Ingrese el nuevo Id Director: ");
-            break;
-        case 5:
-            seguir = 'n';
-            break;
-        }
-    } while (seguir == 's');
+            case 4:
+                if(getInt("Ingrese el nuevo Id Director: ",strLongitud.buffer,1,20))
+                    pelicula[pos].idDirector=atoi(strLongitud.buffer);
+                break;
+            case 5:
+                seguir = 'n';
+                break;
+            }
+        } while (seguir == 's');
+    }
+    else
+    {
+        retorno=0;
+    }
+    return retorno;
 }
 
 void eliminarPelicula (ePelicula pelicula[],int baja, int pos)
@@ -376,22 +411,69 @@ int getInt(char mensaje[],char buffer[],int minimo, int maximo)
     do
     {
         printf("%s",mensaje);
-        auxiliar=atoi(buffer);
-        if(auxiliar>=minimo && auxiliar<=maximo)
+        fflush(stdin);
+        gets(buffer);
+        if(esNumerico(buffer))
         {
-            retorno=1;
-            seguir='n';
+            auxiliar=atoi(buffer);
+            if(verificarRangoInt(auxiliar, minimo, maximo))
+            {
+                retorno=1;
+                seguir='n';
+            }
+            else
+            {
+                printf("Desea continuar?s/n: ");
+                fflush(stdin);
+                scanf("%c",&seguir);
+            }
         }
         else
         {
             printf("Dato ingresado incorrecto. Desea continuar?s/n: ");
-            scanf("%c",seguir);
+            fflush(stdin);
+            scanf("%c",&seguir);
         }
     }
     while(seguir=='s');
 
     return retorno;
 }
+
+int verificarRangoInt(int auxiliar, int minimo, int maximo)
+{
+    char seguir='s';
+    int retorno=0;
+
+        if(auxiliar>=minimo && auxiliar<=maximo)
+        {
+            retorno=1;
+            seguir = 'n';
+        }
+        else
+        {
+            printf("Dato ingresado fuera del rango permitido.");
+        }
+    return retorno;
+}
+
+/**
+ * \brief Verifica si el valor recibido es numérico
+ * \param str Array con la cadena a ser analizada
+ * \return 1 si es númerico y 0 si no lo es
+ */
+int esNumerico(char str[])
+{
+   int i=0;
+   while(str[i] != '\0')
+   {
+       if(str[i] < '0' || str[i] > '9')
+           return 0;
+       i++;
+   }
+   return 1;
+}
+
 
 /**
  * \brief Solicita un texto al usuario y lo devuelve
@@ -401,7 +483,9 @@ int getInt(char mensaje[],char buffer[],int minimo, int maximo)
  */
 int getString(char mensaje[],char buffer[], int longitud)
 {
-    int flag=0;
+    char seguir='s';
+    int retorno=0;
+
     do
     {
         system("cls");
@@ -409,16 +493,19 @@ int getString(char mensaje[],char buffer[], int longitud)
         scanf ("%s", buffer);
         if(strlen(buffer)<=longitud)
         {
-            flag=1;
+            retorno=1;
+            seguir='n';
         }
         else
         {
-            printf("El valor ingresado es incorrecto.\n")
+            printf("Dato ingresado incorrecto. Desea continuar?s/n: ");
+            fflush(stdin);
+            scanf("%c",&seguir);
         }
     }
-    while(flag==0);
+    while(seguir=='s');
 
-    return flag;
+    return retorno;
 }
 /**
  * \brief Solicita un texto al usuario y lo devuelve
@@ -429,14 +516,34 @@ int getString(char mensaje[],char buffer[], int longitud)
  */
 int getStringLetras(char mensaje[], char buffer[], int longitud)
 {
-    if(getString(mensaje,buffer,longitud)==1)
+    int retorno=0;
+    int seguir='s';
+     do
     {
-       if(esSoloLetras(buffer))
+        if(getString(mensaje,buffer,longitud))
         {
-            return 1;
+            if(esSoloLetras(buffer))
+            {
+
+                retorno=1;
+                seguir='n';
+            }
+            else
+            {
+                printf("Dato ingresado incorrecto. Desea continuar?s/n: ");
+                fflush(stdin);
+                scanf("%c",&seguir);
+            }
+        }
+        else
+        {
+            seguir='n';
+
         }
     }
-    return 0;
+    while(seguir=='s');
+
+    return retorno;
 }
 
 /**
@@ -447,30 +554,21 @@ int getStringLetras(char mensaje[], char buffer[], int longitud)
  */
 int esSoloLetras(char str[])
 {
-   int i=0;
-   while(str[i] != '\0')
-   {
-       if((str[i] != ' ') && (str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z'))
-           return 0;
+    int i = 0;
+    char letra;
+
+    while(str[i] != '\0')
+    {
+        letra=str[i];
+        if(!isalpha(letra))
+        {
+            return 0;
+        }
        i++;
-   }
+    }
    return 1;
 }
 
-
-int validarRangoEdad(eValidar cadena)
-{
-    int edad;
-    edad=atoi(cadena.buffer);
-    if(edad>=cadena.minimo && edad<=cadena.maximo)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
 
 int verificarDNI(eValidar cadena)
 {
@@ -496,7 +594,7 @@ int validarStr(eValidar cadena)
 
     while(cadena.buffer[i] != '\0')
     {
-        letra=(char)cadena.buffer[i];
+        letra=str[i];
         if(!isalpha(letra))
         {
             return 0;
