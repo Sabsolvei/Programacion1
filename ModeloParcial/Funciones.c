@@ -194,14 +194,70 @@ int altaPelicula (ePelicula pelicula[], eDirector director[],int pos,int C, int 
     }
     if(seguir==1)
     {
-        pelicula[pos].idEstado=1;
-        buscarIdMayor(pelicula,C,&idMayor);
+        buscarIdMayorPelicula(pelicula,C,&idMayor);
         pelicula[pos].idPelicula=idMayor+1;
+        pelicula[pos].idEstado=1;
+
     }
     return seguir;
 }
 
-int buscarIdMayor (ePelicula pelicula[], int C, int *idMayor)
+int altaDirector (eDirector director[], ePelicula pelicula[],int pos,int C, int D, char buffer[])
+{
+    int i=0;
+    int id;
+    int idMayor=0;
+    int seguir=1;
+
+    if(getStringLetras("Ingrese el nombre: ",buffer, 255))
+    {
+        strcpy(director[pos].nombre,buffer);
+    }
+    else { seguir=0; }
+
+    system("cls");
+
+    if(seguir==1)
+    {
+        printf("Ingrese fecha de nacimiento: 00/00/0000\n:");
+        if(getInt("Ingrese dia: ",buffer,1,31))
+        {
+            director[pos].nacimiento.dia=atoi(buffer);
+        }
+        else { seguir=0; }
+        if(getInt("Ingrese mes: ",buffer,1,12))
+        {
+            director[pos].nacimiento.mes=atoi(buffer);
+        }
+        else { seguir=0; }
+        if(getInt("Ingrese anio: ",buffer,1900,2016))
+        {
+            director[pos].nacimiento.anio=atoi(buffer);
+        }
+        else { seguir=0; }
+    }
+    system("cls");
+
+    if(seguir==1)
+    {
+        if(getStringLetras("Ingrese nacionalidad: ",buffer, 20))
+        {
+            strcpy(director[pos].nacionalidad,buffer);
+        }
+        else { seguir=0; }
+    }
+
+    if(seguir==1)
+    {
+        buscarIdMayorDirector(director,D,&idMayor);
+        director[pos].idDirector=idMayor+1;
+        director[pos].idEstado=1;
+    }
+    return seguir;
+}
+
+
+int buscarIdMayorPelicula (ePelicula pelicula[], int C, int *idMayor)
 {
     int i=0;
     for(i=0;i<C;i++)
@@ -216,18 +272,64 @@ int buscarIdMayor (ePelicula pelicula[], int C, int *idMayor)
     }
 }
 
+int buscarIdMayorDirector (eDirector director[], int D, int *idMayor)
+{
+    int i=0;
+    for(i=0;i<D;i++)
+    {
+        if(director[i].idEstado==0 || director[i].idEstado==1)
+        {
+            if(director[i].idDirector>*idMayor)
+            {
+                *idMayor = director[i].idDirector;
+            }
+        }
+    }
+}
+
 
 void listarPeliculas (ePelicula pelicula[], int C)
 {
     int i=0;
+    ordenarPelicula (pelicula, C);
     printf("Id  Titulo  Año Nacionalidad    IdDirector\n");
     for(i=0;i<C;i++)
     {
         if(pelicula[i].idEstado==1)
-        {
             printf("%d  %s  %d  %s  %d\n",pelicula[i].idPelicula,pelicula[i].titulo, pelicula[i].anio, pelicula[i].nacionalidad, pelicula[i].idDirector);
+    }
+}
+
+void ordenarPelicula (ePelicula pelicula[], int C)
+{
+    int i=0;
+    int j=0;
+    ePelicula auxiliar;
+    for(i=0;i<C-1;i++)
+    {
+        if(pelicula[i].idEstado==1)
+        {
+            for(j=i+1;j<C;j++)
+            {
+                if(pelicula[j].idEstado==1)
+                {
+                    if(stricmp(pelicula[i].titulo,pelicula[j].titulo)<0)
+                    {
+                            auxiliar=pelicula[i];
+                            pelicula[i]=pelicula[j];
+                            pelicula[j]=auxiliar;
+                    }
+                    if((stricmp(pelicula[i].titulo,pelicula[j].titulo)==0) && pelicula[i].anio<pelicula[j].anio)
+                    {
+                            auxiliar=pelicula[i];
+                            pelicula[i]=pelicula[j];
+                            pelicula[j]=auxiliar;
+                    }
+                }
+            }
         }
     }
+
 }
 
 void listarDirectores (eDirector director[], int D)
@@ -358,6 +460,7 @@ void eliminarDirector (eDirector director[],int baja, int pos)
     director[pos].idEstado=baja;
 }
 
+/*
 int altaDirector (eDirector director[],int pos,int estado, int idDMayor, int D)
 {
     int flag=1;
@@ -428,6 +531,7 @@ int verificarNombre (eDirector director[], int D, char nombreAux[])
     return retorno;
 }
 
+*/
 
 /**
  * \brief Solicita un número al usuario y devuelve el resultado
@@ -435,6 +539,7 @@ int verificarNombre (eDirector director[], int D, char nombreAux[])
  * \return El número ingresado por el usuario
  *
  */
+
 int getInt(char mensaje[],char buffer[],int minimo, int maximo)
 {
     int retorno=0;

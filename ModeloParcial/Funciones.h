@@ -61,15 +61,17 @@ int encontrarEspacioLibrePelicula (ePelicula pelicula[],int C);
 int encontrarEspacioLibreDirector (eDirector director[],int C);
 
 int altaPelicula (ePelicula pelicula[], eDirector director[],int pos,int C, int D, char buffer[]);
-int buscarIdMayor (ePelicula pelicula[], int C, int *idMayor);
+int buscarIdMayorPelicula (ePelicula pelicula[], int C, int *idMayor);
+int buscarIdMayorDirector (eDirector director[], int D, int *idMayor);
 int verificarNombre (eDirector director[], int D, char nombreAux[]);
 int modificarPelicula (ePelicula pelicula[],int pos,char buffer[]);
 
 void listarPeliculas (ePelicula pelicula[], int C);
+void ordenarPelicula (ePelicula pelicula[], int C);
 void listarDirectores (eDirector director[], int D);
 int buscarIdPelicula (ePelicula pelicula[],int C,int idPelicula);
 void eliminarPelicula (ePelicula pelicula[],int baja, int pos);
-int altaDirector (eDirector director[],int pos,int estado, int idDMayor, int D);
+int altaDirector (eDirector director[], ePelicula pelicula[],int pos,int C, int D, char buffer[]);
 
 int getInt(char mensaje[],char buffer[],int minimo, int maximo);
 

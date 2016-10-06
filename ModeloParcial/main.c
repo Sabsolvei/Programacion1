@@ -58,7 +58,7 @@ int main()
                     }
                     else
                     {
-                        printf("No hay espacio libre.");
+                        printf("No hay espacio libre para agregar pelicula.");
                     }
                     break;
 
@@ -67,7 +67,7 @@ int main()
                     listarPeliculas (pelicula,C);
                     if(getInt("Ingrese el Id Pelicula que desea modificar: ",buffer, 1, 20))
                     {
-                        idPelicula=atoi(buffer);
+                        idPelicula = atoi(buffer);
                         pos = buscarIdPelicula (pelicula, C, idPelicula);
                         if(pos >= 0)
                         {
@@ -89,7 +89,7 @@ int main()
 
                         pos=buscarIdPelicula(pelicula,C,idPelicula);
 
-                        if(pos>=0)
+                        if(pos >= 0)
                         {
                             system("cls");
                             eliminarPelicula (pelicula,BAJA,pos);
@@ -99,27 +99,32 @@ int main()
                     break;
 
                 case 4: //ALTA DIRECTOR
-                    pos=encontrarEspacioLibreDirector (director,D);
+                    pos=encontrarEspacioLibreDirector(director, D);
 
                     if(pos>=0)
                     {
-                        idDMayor=altaDirector(director,pos,OCUPADO,idDMayor,D);
+                        if(altaDirector(director, pelicula, pos,D ,C, buffer))
+                        {
+                            printf("Director agregado con exito.\n");
+                        }
                     }
                     else
                     {
-                        printf("No hay espacio libre.");
+                        printf("No hay espacio libre para agregar director.");
                     }
                     break;
 
                 case 5: //BORRAR DIRECTOR
                     system("cls");
                     listarDirectores (director, D);
-                    printf("Ingrese el Id de director que desea eliminar: ");
-                    scanf("%d",&idDirector);
+                    if(getInt("Ingrese el Id Director que desea borrar: ",buffer,1,20))
+                    {
+                        idDirector = atoi(buffer);
+                    }
 
                     pos=buscarIdDirector (director, D, idDirector);
 
-                    if(pos>=0)
+                    if(pos >= 0)
                     {
                         system("cls");
                         eliminarDirector (director, BAJA, pos);
