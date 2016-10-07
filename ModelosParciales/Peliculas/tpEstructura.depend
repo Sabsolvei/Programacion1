@@ -1,0 +1,71 @@
+# depslib dependency file v1.0
+1474072610 source:c:\users\alumno\desktop\estructuratpclase\tpestructura\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1475276652 source:d:\estructuratpclase\tpestructura\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Funciones.h"
+
+1475279720 d:\estructuratpclase\tpestructura\funciones.h
+
+1475279929 source:d:\estructuratpclase\tpestructura\funciones.c
+	<stdio.h>
+	"Funciones.h"
+
+1475333335 source:d:\programacion1-master\programacion1-master\estructuratpclase\tpestructura\funciones.c
+	<stdio.h>
+	"Funciones.h"
+
+1475334952 d:\programacion1-master\programacion1-master\estructuratpclase\tpestructura\funciones.h
+
+1475334756 source:d:\programacion1-master\programacion1-master\estructuratpclase\tpestructura\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Funciones.h"
+
+1475448940 source:c:\users\sabrina\downloads\programacion1-master (1)\programacion1-master\tpestructura\funciones.c
+	<stdio.h>
+	"Funciones.h"
+
+1475448940 c:\users\sabrina\downloads\programacion1-master (1)\programacion1-master\tpestructura\funciones.h
+
+1475448940 source:c:\users\sabrina\downloads\programacion1-master (1)\programacion1-master\tpestructura\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Funciones.h"
+
+1475809139 source:d:\workspaceprogramacion\programacion_i\modeloparcial\funciones.c
+	<stdio.h>
+	"Funciones.h"
+
+1475813646 d:\workspaceprogramacion\programacion_i\modeloparcial\funciones.h
+
+1475807585 source:d:\workspaceprogramacion\programacion_i\modeloparcial\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Funciones.h"
+
+1475601385 source:c:\users\sveiga\downloads\programacion1-master\programacion1-master\modeloparcial\funciones.c
+	<stdio.h>
+	"Funciones.h"
+
+1475601173 c:\users\sveiga\downloads\programacion1-master\programacion1-master\modeloparcial\funciones.h
+
+1475600148 source:c:\users\sveiga\downloads\programacion1-master\programacion1-master\modeloparcial\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Funciones.h"
+
+1475722205 source:d:\workspaceprogramacion\modeloparcial\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Funciones.h"
+
+1475723872 d:\workspaceprogramacion\modeloparcial\funciones.h
+
+1475721954 source:d:\workspaceprogramacion\modeloparcial\funciones.c
+	<stdio.h>
+	"Funciones.h"
+

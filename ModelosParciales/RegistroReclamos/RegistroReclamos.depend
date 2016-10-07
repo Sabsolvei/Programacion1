@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1475869623 source:d:\workspaceprogramacion\programacion_i\modelosparciales\registroreclamos\funciones.c
+	<stdio.h>
+	"Funciones.h"
+
+1475868198 d:\workspaceprogramacion\programacion_i\modelosparciales\registroreclamos\funciones.h
+
+1475868437 source:d:\workspaceprogramacion\programacion_i\modelosparciales\registroreclamos\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Funciones.h"
+
