@@ -46,7 +46,7 @@
 	"ArrayList.h"
 	"Employee.h"
 
-1477702396 source:d:\sabri\practica_pair_v1.2\employee.c
+1477755200 source:d:\sabri\practica_pair_v1.2\employee.c
 	<stdio.h>
 	<stdlib.h>
 	"ArrayList.h"
@@ -54,9 +54,15 @@
 
 1463604778 d:\sabri\practica_pair_v1.2\arraylist.h
 
-1477702256 d:\sabri\practica_pair_v1.2\employee.h
+1477755633 d:\sabri\practica_pair_v1.2\employee.h
 
-1477702423 source:d:\sabri\practica_pair_v1.2\main.c
+1477755220 source:d:\sabri\practica_pair_v1.2\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ArrayList.h"
+	"Employee.h"
+
+1477751347 source:d:\sabri\practica_pair_v1.2\parser.c
 	<stdio.h>
 	<stdlib.h>
 	"ArrayList.h"

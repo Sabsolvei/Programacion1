@@ -6,7 +6,7 @@
 
 int parserEmployee(FILE* pFile , ArrayList* pArrayListEmployee)
 {
-    int id;
+    char id[51];
     char name[51];
     char lastName[51];
     char isEmpty[10];
@@ -27,7 +27,7 @@ int parserEmployee(FILE* pFile , ArrayList* pArrayListEmployee)
             continue;
         }
         Employee* empleado;
-        empleado= employee_new(id,name,lastName);
+        empleado= employee_new(atoi(id),name,lastName);
         if(strcmp(isEmpty,"false"))
         {
             empleado->isEmpty=0;
@@ -37,21 +37,7 @@ int parserEmployee(FILE* pFile , ArrayList* pArrayListEmployee)
             empleado->isEmpty=1;
         }
 
-        pArrayListEmployee->al_add(* pArrayListEmployee,* empleado);
-        for (i=0; i<pArrayListEmployee->len(pArrayListEmployee); i++)
-        {
-            if(pArrayListEmployee->isEmpty == 0)
-            {
-
-                printf("ID:%4d Name: %-15s Last Name: %15s\n" ,
-                       empleado->id;
-                       empleado->name;
-                       empleado->lastName;
-                       empleado->isEmpty;
-            }
-
-        }
-
+        pArrayListEmployee->add(pArrayListEmployee,empleado);
 
     }
 
