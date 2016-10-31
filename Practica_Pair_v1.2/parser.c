@@ -43,5 +43,7 @@ int parserEmployee(FILE* pFile , ArrayList* pArrayListEmployee)
 
     fclose(pFile);
 
+
+
     return 0;
 }

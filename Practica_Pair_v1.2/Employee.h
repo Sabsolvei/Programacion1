@@ -27,8 +27,7 @@ struct
 
 }typedef Employee;
 
-
-int employee_compare(void* pEmployeeA,void* pEmployeeB);
+int employee_compare(Employee* A, Employee* B);
 void employee_print(Employee* this);
 void employee_printAll(ArrayList* this);
 Employee* employee_new(int id, char name[],char lastName[]);
@@ -36,6 +35,10 @@ void employee_delete(Employee* this);
 int employee_setId(Employee* this, int id);
 int employee_getId(Employee* this);
 Employee* employee_altaEmpleado();
+Employee* buscarPorId (ArrayList*this);
+void Employee_subList(ArrayList *this);
+
+
 #endif // _EMPLOYEE_H
 
 

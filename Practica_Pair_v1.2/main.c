@@ -5,12 +5,17 @@
 
 /****************************************************
     Menu:
-        1. Parse del archivo data.csv
+        1. Parse del archivo data.csv (Crear arrayList (newArrayList())
         2. Listar Empleados
         3. Ordenar por nombre (compara 2 empleados, devuelve resultado,
                                y con ese result se lo paso como puntero a la funcion SORT
 
         4. Agregar un elemento
+            Implementar Parser Employee:
+            Leer archivo -> Por cada lectura:. Crear un empleado (new employee())
+                                             . Agregarlo al arrayList.
+                                             . Mostrar el arrayList
+
         5. Eliminar un elemento: busco dentro del arrya por Id, devuelve el puntero a empleado hacia donde apunta el
                             empleado de ese id.
                             puntero= buscarxId -> ese puntero se lo paso al indexOf
@@ -20,14 +25,6 @@
         6. Listar Empleados (Desde/Hasta)
                                subList->desde: indice desde donde muestra, incluido. hasta donde, excluido. (se puede preg
                               al usuario que quiere ver, ej top 5)
-
-
-        1ER EJERCICIO
-        1. Crear arrayList (newArrayList())
-        2. Implementar Parser Employee:
-            Leer archivo -> Por cada lectura:. Crear un empleado (new employee())
-                                             . Agregarlo al arrayList
-        3. Mostrar el arrayList
 
 *****************************************************/
 
@@ -45,11 +42,20 @@ int main()
 
     system("pause");
     system("cls");
-    empleado= employee_altaEmpleado();
-    employee_print(empleado);
+    /*//empleado= employee_altaEmpleado();
+    //employee_print(empleado);
     system("pause");
     pArrayListEmployee->add(pArrayListEmployee,empleado);
     employee_printAll(pArrayListEmployee);
+*/
+    //Employee_bajaEmpleado(pArrayListEmployee);
+
+    //Employee_subList(pArrayListEmployee);
+
+    Employee_ordenarPorNombre (pArrayListEmployee);
+
+
+
 
 
     return(0);
