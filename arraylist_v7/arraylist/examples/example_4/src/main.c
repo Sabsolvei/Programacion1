@@ -46,22 +46,22 @@ int main(void)
 {
 
     #ifdef TEST
-        //startTesting(1);
-  //      startTesting(2);
- //      startTesting(3);
-//        startTesting(4);
-//       startTesting(5);
-//        startTesting(6);
-//        startTesting(7);
-        startTesting(8);
-//        startTesting(9);
-//        startTesting(10);
-//        startTesting(11);
-//        startTesting(12);
-//        startTesting(13);
-//        startTesting(14);
-//        startTesting(15);
-//        startTesting(16);
+//              startTesting(1);
+//PINCHA        startTesting(2);
+//              startTesting(3);
+//              startTesting(4);
+//              startTesting(5);
+//              startTesting(6);
+//PINCHA        startTesting(7);
+//PINCHA        startTesting(8);
+//ERROR SIZE    startTesting(9);
+//              startTesting(10);
+//PINCHA        startTesting(11);
+//              startTesting(12);
+//PINCHA        startTesting(13);
+//ERROR REMOVE  startTesting(14);
+//PINCHA        startTesting(15);
+        startTesting(16);
 //        startTesting(17);
     #else
         //run();
