@@ -68,20 +68,13 @@ ArrayList* al_newArrayList(void)
  */
 int al_add(ArrayList* pList,void* pElement)
 {
-    int hayMemoria = 0;
     int returnAux = -1;
     if(pList != NULL && pElement != NULL)
     {
-        if (pList->size == pList->reservedSize)
-        {
-            hayMemoria = resizeUp(pList);
-        }
-        if(hayMemoria == 0)
-        {
-            pList->pElements[pList->size] = pElement;
-            pList->size = pList->size+1;
-            returnAux=0;
-        }
+        resizeUp(pList);
+        pList->pElements[pList->size] = pElement;
+        pList->size = pList->size+1;
+        returnAux = 0;
     }
     return returnAux;
 }
@@ -96,6 +89,7 @@ int al_deleteArrayList(ArrayList* pList)
     int returnAux = -1;
     if(pList != NULL)
     {
+        free(pList->pElements);
         free(pList);
         returnAux = 0;
     }
@@ -128,7 +122,7 @@ int al_len(ArrayList* pList)
 void* al_get(ArrayList* pList, int index)
 {
     void* returnAux = NULL;
-    if(pList != NULL && index >= 0 && index < pList->size)
+    if(pList != NULL && index >= 0 && index <= pList->size)
     {
         returnAux = *(pList->pElements+index);
         //returnAux = pList->pElements[index];
@@ -171,16 +165,11 @@ int al_contains(ArrayList* pList, void* pElement)
 
 int al_set(ArrayList* pList, int index,void* pElement)
 {
-    int expandio = 0;
     int returnAux = -1;
-    if(pList != NULL && pElement != NULL && index >= 0 && index < pList->size)
+    if(pList != NULL && pElement != NULL && index >= 0 && index <= pList->size)
     {
-        expandio = expand(pList, index);
-        if(expandio == 0)
-        {
-            returnAux = 0;
-            pList->pElements[index] = pElement;
-        }
+        returnAux = 0;
+        pList->pElements[index] = pElement;
     }
     return returnAux;
 }
@@ -188,7 +177,7 @@ int al_set(ArrayList* pList, int index,void* pElement)
 /** \brief  Remove an element by index
  * \param pList ArrayList* Pointer to arrayList
  * \param index int Index of the element
- * \return int Return (-1) if Error [pList is NULL pointer or invalid index]
+ * \return int ReturnreturnAux = 0; (-1) if Error [pList is NULL pointer or invalid index]
  *                  - ( 0) if Ok
  */
 int al_remove(ArrayList* pList,int index)
@@ -214,7 +203,7 @@ int al_clear(ArrayList* pList)
     int returnAux = -1;
     if(pList != NULL)
     {
-        free(pList);
+        pList->size = 0;
         returnAux = 0;
     }
     return returnAux;
@@ -228,9 +217,17 @@ int al_clear(ArrayList* pList)
 ArrayList* al_clone(ArrayList* pList)
 {
     ArrayList* returnAux = NULL;
+    int i = 0;
     if(pList != NULL)
     {
-        returnAux = pList;
+        returnAux = al_newArrayList();
+        if(returnAux != NULL)
+        {
+            for(i = 0; i<pList->size; i++)
+            {
+                al_add(returnAux, al_get(pList, i));
+            }
+        }
     }
     return returnAux;
 }
@@ -245,24 +242,14 @@ ArrayList* al_clone(ArrayList* pList)
 int al_push(ArrayList* pList, int index, void* pElement)
 {
     int returnAux = -1;
-    int hayMemoria = 1;
-
-    if(pList != NULL && pElement != NULL && index>=0 && index<pList->size)
+    if(pList != NULL && pElement != NULL && index >= 0 && index <= pList->size)
     {
-        if (pList->size == pList->reservedSize)
+        resizeUp(pList);
+        if(expand(pList, index)==0)
         {
-            if(!resizeUp(pList))
-            {
-                hayMemoria = 0;
-            }
-        }
-        if(hayMemoria == 1)
-        {
-            if(expand(pList, index)==0)
-            {
-                returnAux = 0;
-                pList->pElements[index] = pElement;
-            }
+            returnAux = 0;
+            al_set(pList, index, pElement);
+            pList->size++;
         }
     }
     return returnAux;
@@ -299,10 +286,10 @@ int al_isEmpty(ArrayList* pList)
 {
     int returnAux = -1;
 
-    if(pList =! NULL && pList->pElements != NULL)
+    if(pList != NULL && pList->pElements != NULL)
     {
         returnAux = 1;
-        if(pList->size >= 0)
+        if(pList->size > 0)
         {
             returnAux = 0;
         }
@@ -321,8 +308,8 @@ void* al_pop(ArrayList* pList,int index)
     void* returnAux = NULL;
     if(pList != NULL && index >= 0 && index < pList->size)
     {
-        returnAux = pList->pElements[index];
-        //al_remove(pList, index);
+        al_get(pList,index);
+        al_remove(pList, index);
     }
     return returnAux;
 }
@@ -337,21 +324,16 @@ void* al_pop(ArrayList* pList,int index)
  */
 ArrayList* al_subList(ArrayList* pList,int from,int to)
 {
-    int i = 0, j = from;
-    int len = 0;
+    int i = from;
     ArrayList* returnAux = NULL;
     returnAux = al_newArrayList();
 
     if(returnAux != NULL && from >= 0 && to < pList->size)
     {
-        len = to-from;
-        while (j != to)
+        for(i=from; i<to; i++)
         {
-            for(i=0; i<len; i++)
-            {
-                returnAux->pElements[i] = pList->pElements[j];
-                j++;
-            }
+            al_get(pList, pList->pElements[i]);
+            pList->add(returnAux, i);
         }
     }
     return returnAux ;
@@ -365,19 +347,14 @@ ArrayList* al_subList(ArrayList* pList,int from,int to)
  */
 int al_containsAll(ArrayList* pList,ArrayList* pList2)
 {
-    int returnAux = -1, igual = 0 i = 0, j = 0;
+    int returnAux = -1, igual = 0, i = 0, j = 0;
     if(pList2 != NULL && pList != NULL)
     {
         for (i = 0; i < pList->size; i++)
         {
             for(j = 0; j< pList2->size; j++)
             {
-                igual = 1;
-                if(pList2->pElements[j] != pList->pElements[i])
-                {
-                    igual = 0;
-                    break;
-                }
+                pList->contains();
             }
             if(igual == 0)
             {
@@ -397,33 +374,38 @@ int al_containsAll(ArrayList* pList,ArrayList* pList2)
  */
 int al_sort(ArrayList* pList, int (*pFunc)(void*,void*), int order)
 {
-    int returnAux = -1, i = 0, j = 0;
+    int returnAux = -1;
+    /*
+    string compare
+    izq > der -1
+
+    int (*pFunc)(void*,void*) -> se pone el nombre del puntero a la funcion
+
+    LLAMADA -> al_sort (plist,sumar,1);
+
+    las funciones Compare se hacen las necesarias para el negocio.
+
+
+    i = 0, j = 0;
     if(pList2 != NULL && pList != NULL)
     {
         for (i = 0; i < pList->size-1; i++)
         {
             for(j = i+1; j< pList2->size; j++)
             {
-                if(order == 1)
+                if(pFunc(plist->pelements[i], plist->pelements[j]) == 1))
                 {
-                    if(order == employee_compare(void* pEmployeeA,void* pEmployeeB))
-                    {
-
-                    }
+                   swap()
                 }
-                if(order == -1)
+               else if
                 {
-                    if(order == employee_compare(void* pEmployeeA,void* pEmployeeB))
-                    {
-
-                    }
+                   swap()
                 }
-
             }
         }
     }
 
-
+    */
     return returnAux;
 }
 
@@ -437,49 +419,27 @@ int resizeUp(ArrayList* pList)
 {
     void* auxElements;
     int returnAux = -1;
-    if(pList =! NULL)
-    {
-        auxElements = (void *)realloc(pList->pElements,sizeof(void *) * (pList->size + AL_INCREMENT));
-        if(auxElements =! NULL)
-        {
-            pList->pElements = auxElements;
-            pList->reservedSize = pList->size + AL_INCREMENT;
-            returnAux = 0;
-        }
-    }
-    return returnAux;
-}
-
-/** \brief  Expand an array list
- * \param pList ArrayList* Pointer to arrayList
- * \param index int Index of the element
- * \return int Return (-1) if Error [pList is NULL pointer or invalid index]
- *                  - ( 0) if Ok
- */
-int expand(ArrayList* pList,int index)
-{
-    int i = 0;
-    int hayMemoria = 0;
-    int returnAux = -1;
-
-    if(pList =! NULL && index >= 0 && index < pList->size)
+    if(pList != NULL)
     {
         if(pList->size == pList->reservedSize)
         {
-            hayMemoria = resizeUp(pList);
-        }
-        if(hayMemoria == 0)
-        {
-            returnAux = 0;
-            for(i = pList->size; i < index; i--)
+            auxElements = (void *)realloc(pList->pElements,sizeof(void *) * (pList->reservedSize + AL_INCREMENT));
+            if(auxElements != NULL)
             {
-                pList->pElements[i+1] = pList->pElements[i];
-                pList->size++;
+                pList->pElements = auxElements;
+                pList->reservedSize = pList->reservedSize + AL_INCREMENT;
+                returnAux = 0;
+            }
+            else
+            {
+                returnAux = 0;
             }
         }
     }
     return returnAux;
 }
+
+
 
 /** \brief  Contract an array list
  * \param pList ArrayList* Pointer to arrayList
@@ -490,15 +450,38 @@ int expand(ArrayList* pList,int index)
 int contract(ArrayList* pList,int index)
 {
     int i = 0, returnAux = -1;
-
-    if(pList =! NULL && index >= 0 && index < pList->size)
+    if(pList != NULL && index >= 0 && index < pList->size)
     {
-        returnAux = 0;
         for(i = index+1; i > pList->size; i--)
         {
             pList->pElements[i-1] = pList->pElements[i];
-            pList->size--;
         }
+        pList->size--;
+        returnAux = 0;
+    }
+    return returnAux;
+}
+
+
+
+
+/** \brief  Expand an array list
+ * \param pList ArrayList* Pointer to arrayList
+ * \param index int Index of the element
+ * \return int Return (-1) if Error [pList is NULL pointer or invalid index]
+ *                  - ( 0) if Ok
+ */
+int expand(ArrayList* pList,int index)
+{
+    int i = 0, returnAux = -1;
+
+    if(pList != NULL && index >= 0 && index <= pList->size)
+    {
+        for(i = pList->size-1; i >= index; i--)
+        {
+            pList->pElements[i+1] = pList->pElements[i];
+        }
+        returnAux = 0;
     }
     return returnAux;
 }

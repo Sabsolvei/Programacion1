@@ -30,13 +30,13 @@
 
 void printArrayListEmployee(ArrayList* lista)
 {
-  int i=0;
-  for(i=0;i<lista->len(lista);i++)
-  {
-      Employee* pAux = lista->get(lista,i);
-      printf("%d) ",i);
-      printEmployee(pAux);
-  }
+    int i=0;
+    for(i=0; i<lista->len(lista); i++)
+    {
+        Employee* pAux = lista->get(lista,i);
+        printf("%d) ",i);
+        printEmployee(pAux);
+    }
 }
 
 
@@ -45,28 +45,28 @@ int run2(void);
 int main(void)
 {
 
-    #ifdef TEST
+#ifdef TEST
 //              startTesting(1);
-//PINCHA        startTesting(2);
+//       startTesting(2);
 //              startTesting(3);
-//              startTesting(4);
+//             startTesting(4);
 //              startTesting(5);
-//              startTesting(6);
-//PINCHA        startTesting(7);
-//PINCHA        startTesting(8);
-//ERROR SIZE    startTesting(9);
-//              startTesting(10);
-//PINCHA        startTesting(11);
-//              startTesting(12);
-//PINCHA        startTesting(13);
-//ERROR REMOVE  startTesting(14);
+//             startTesting(6);
+//       startTesting(7);
+ //   startTesting(8);
+ //  startTesting(9);
+//          startTesting(10);
+     startTesting(11);
+//             startTesting(12);
+//     startTesting(13);
+//ERROR  startTesting(14);
 //PINCHA        startTesting(15);
-        startTesting(16);
+//       startTesting(16);
 //        startTesting(17);
-    #else
-        //run();
-        run2();
-    #endif
+#else
+    //run();
+    run2();
+#endif
 
     return 0;
 }
@@ -77,10 +77,10 @@ int main(void)
 int run2(void)
 {
     // Genero personas para usar en el ArrayList
-    Employee* p0 = newEmployee(14, "JUAN1" ,"LOPEZ", 133.22,5);
-    Employee* p1 = newEmployee(14, "JUAN2" ,"LOPEZ", 233.22,5);
-    Employee* p2 = newEmployee(14, "JUAN3" ,"LOPEZ", 333.22,5);
-    Employee* p3 = newEmployee(14, "JUAN4" ,"LOPEZ", 433.22,5);
+    Employee* p0 = newEmployee(14, "JUAN1","LOPEZ", 133.22,5);
+    Employee* p1 = newEmployee(14, "JUAN2","LOPEZ", 233.22,5);
+    Employee* p2 = newEmployee(14, "JUAN3","LOPEZ", 333.22,5);
+    Employee* p3 = newEmployee(14, "JUAN4","LOPEZ", 433.22,5);
 
     printEmployee(p0);
     printEmployee(p1);
@@ -181,16 +181,16 @@ int run2(void)
     int j;
     for(j=0; j<1100; j++)
     {
-      Employee* pAux = malloc(sizeof(Employee));
-      sprintf(pAux->name,"Juan %d",j);
-      pAux->salary=j;
-      lista->add(lista,pAux);
+        Employee* pAux = malloc(sizeof(Employee));
+        sprintf(pAux->name,"Juan %d",j);
+        pAux->salary=j;
+        lista->add(lista,pAux);
     }
     printf("Cantidad de elementos:%d\r\n",lista->len(lista));
     //printArrayListPersonas(lista);
     for(j=0; j<1100; j++)
     {
-      lista->pop(lista,0);
+        lista->pop(lista,0);
     }
     printf("Cantidad de elementos:%d\r\n",lista->len(lista));
     //printArrayListPersonas(lista);
