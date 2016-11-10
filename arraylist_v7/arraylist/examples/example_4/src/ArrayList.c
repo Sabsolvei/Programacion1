@@ -347,18 +347,21 @@ ArrayList* al_subList(ArrayList* pList,int from,int to)
  */
 int al_containsAll(ArrayList* pList,ArrayList* pList2)
 {
-    int returnAux = -1, igual = 0, i = 0, j = 0;
+    int returnAux = -1, i = 0, coincide = -1;
+    void* pElement;
     if(pList2 != NULL && pList != NULL)
     {
         for (i = 0; i < pList->size; i++)
         {
-            for(j = 0; j< pList2->size; j++)
+            coincide = pList->contains(pList2, pList->pElements[i])==-1
+            if(coincide == -1 || coincide == 0)
             {
-                pList->contains();
+               returnAux = 0;
+               break;
             }
-            if(igual == 0)
+            else
             {
-                break;
+                returnAux = 1;
             }
         }
     }
@@ -452,7 +455,7 @@ int contract(ArrayList* pList,int index)
     int i = 0, returnAux = -1;
     if(pList != NULL && index >= 0 && index < pList->size)
     {
-        for(i = index+1; i > pList->size; i--)
+        for(i = index+1; i <= pList->size; i--)
         {
             pList->pElements[i-1] = pList->pElements[i];
         }
