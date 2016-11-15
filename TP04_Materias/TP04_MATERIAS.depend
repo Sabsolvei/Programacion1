@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1479165644 source:d:\arraylist_v7\tp04_materias\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"arraylist.h"
+
+1479165538 d:\arraylist_v7\tp04_materias\arraylist.h
+
+1479169264 source:d:\arraylist_v7\tp04_materias\clases.c
+
+1479170376 source:d:\arraylist_v7\tp04_materias\main.c
+	<stdio.h>
+	<stdlib.h>
+	"arraylist.h"
+	"materias.h"
+
+1479168512 d:\arraylist_v7\tp04_materias\materias.h
+
+1479169797 source:d:\arraylist_v7\tp04_materias\materias.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"arraylist.h"
+	"materias.h"
+	"clases.h"
+
+1479165442 d:\arraylist_v7\tp04_materias\clases.h
+
