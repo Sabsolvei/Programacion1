@@ -24,83 +24,84 @@ int get_nextId ()
 int materias_alta(ArrayList* pListMaterias)
 {
     int retorno = -1;
-    Materias* pMateria = NULL;
-    pMateria = materias_new();
-    if (pMateria != NULL)
-    {
-        if(materias_getData(pMateria) == 0)
-        {
-            pMateria->id = get_nextId();
-             printf("EN EL ALTA %p\n", &pMateria->clases);
-             printf("Id: %d -- Nombre: %s -- Carrera: %s -- Clases: %d -- Horas: %d\n", pMateria->id, pMateria->name, pMateria->carrera, pMateria->clases, pMateria->horas);
-            pListMaterias->add(pListMaterias, pMateria);
+    Materias* auxMateria = NULL;
 
-            printf("%d",pListMaterias->len(pListMaterias));
-            retorno = 0;
-        }
+    if(materias_getData(auxMateria) == 0)
+    {
+        printf("EN EL ALTA %p\n", &auxMateria->clases);
+        printf("Id: %d -- Nombre: %s -- Carrera: %s -- Clases: %d -- Horas: %d\n", auxMateria->id, auxMateria->name, auxMateria->carrera, auxMateria->clases, auxMateria->horas);
+        pListMaterias->add(pListMaterias, auxMateria);
+
+        printf("%d",pListMaterias->len(pListMaterias));
+        retorno = 0;
     }
     return retorno;
 }
 
-int materias_getData (Materias* auxMateria)
+Materias* materias_saveData (int id, char name, char carrera, int horas, int clases)
 {
-    char buffer[4000];
-    int retorno = -1, flag = 1;
-
+    Materias * auxMateria = materias_new();
     if(auxMateria != NULL)
     {
-        system("cls");
-        /*if(getInt("Ingrese el Id: ", buffer))
-        {
-            auxMateria->id = atoi(buffer);
-            flag = 1;
-        }
-        else
-        {
-            flag = 0;
-        }*/
-        if(flag == 1 && getStringLetras("Ingrese el nombre: ", buffer, 51))
-        {
-            strcpy(auxMateria->name, buffer);
-            printf("%s\n", auxMateria->name);
-        }
-        else
-        {
-            flag = 0;
-        }
-        if(flag == 1 && getStringLetras("Ingrese la carrera: ", buffer, 51))
-        {
-            strcpy(auxMateria->carrera, buffer);
-            printf("%s\n", auxMateria->carrera);
-        }
-        else
-        {
-            flag = 0;
-        }
-        //system("cls");
-        if(flag == 1 && getInt("Ingrese cantidad de horas: ", buffer))
-        {
-            auxMateria->horas = atoi(buffer);
-            printf("%d\n", auxMateria->horas);
-        }
-        else
-        {
-            flag = 0;
-        }
-        //system("cls");
-        if(flag == 1 && getInt("Ingrese cantidad de clases: ", buffer))
-        {
-            auxMateria->clases = atoi(buffer);
-            printf("%d\n", auxMateria->clases);
-        }
-        else
-        {
-            flag = 0;
-        }
+        strcpy(auxMateria->name, name);
+        strcpy(auxMateria->carrera, carrera);
+        auxMateria->horas = horas;
+        auxMateria->clases = clases;
+        auxMateria->id = get_nextId();
+    }
+    return auxMateria;
+}
+
+int materias_getData (Materias* auxMateria)
+{
+    int retorno = -1, flag = 1;
+    int id, clases, horas;
+    char buffer[4000], name, carrera;
+    system("cls");
+    if(flag == 1 && getStringLetras("Ingrese el nombre: ", buffer, 51))
+    {
+        strncpy(name, buffer,51);
+        printf("%s\n", name);
+    }
+    else
+    {
+        flag = 0;
+    }
+    if(flag == 1 && getStringLetras("Ingrese la carrera: ", buffer, 51))
+    {
+        strncpy(carrera, buffer,51
+                );
+        printf("%s\n", carrera);
+    }
+    else
+    {
+        flag = 0;
+    }
+    //system("cls");
+    if(flag == 1 && getInt("Ingrese cantidad de horas: ", buffer))
+    {
+        horas = atoi(buffer);
+        printf("%d\n", horas);
+    }
+    else
+    {
+        flag = 0;
+    }
+    //system("cls");
+    if(flag == 1 && getInt("Ingrese cantidad de clases: ", buffer))
+    {
+        clases = atoi(buffer);
+        printf("%d\n", clases);
+    }
+    else
+    {
+        flag = 0;
     }
     if(flag == 1)
+    {
+        materias_saveData (auxMateria, name, carrera, horas, clases);
         retorno = 0;
-
+    }
     return retorno;
 }
 
@@ -123,11 +124,11 @@ void materias_list (ArrayList* pListMaterias)
 {
     int i = 0;
     Materias* pAuxMateria;
-   // pAuxMateria = materias_new();
+    // pAuxMateria = materias_new();
 
     //pAuxMateria =(Materias*) pListMaterias->get(pListMaterias, i);
 
- // printf("Id: %d -- Nombre: %s -- Carrera: %s -- Clases: %d -- Horas: %d\n", pAuxMateria->id, pAuxMateria->name, pAuxMateria->carrera, pAuxMateria->clases, pAuxMateria->horas);
+// printf("Id: %d -- Nombre: %s -- Carrera: %s -- Clases: %d -- Horas: %d\n", pAuxMateria->id, pAuxMateria->name, pAuxMateria->carrera, pAuxMateria->clases, pAuxMateria->horas);
 
     for(i=0; i<pListMaterias->len(pListMaterias); i++)
     {

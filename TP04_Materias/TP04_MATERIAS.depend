@@ -119,7 +119,7 @@
 
 1479419930 source:d:\tp04_materias-20161118t222440z\tp04_materias\clases.c
 
-1479560480 source:d:\tp04_materias-20161118t222440z\tp04_materias\main.c
+1479571067 source:d:\tp04_materias-20161118t222440z\tp04_materias\main.c
 	<stdio.h>
 	<stdlib.h>
 	<ctype.h>
@@ -127,7 +127,7 @@
 	"materias.h"
 	"validaciones.h"
 
-1479563650 d:\tp04_materias-20161118t222440z\tp04_materias\materias.h
+1479570067 d:\tp04_materias-20161118t222440z\tp04_materias\materias.h
 
 1479419934 d:\tp04_materias-20161118t222440z\tp04_materias\validaciones.h
 
@@ -139,7 +139,7 @@
 	"materias.h"
 	"validaciones.h"
 
-1479563498 source:d:\tp04_materias-20161118t222440z\tp04_materias\materias.c
+1479571067 source:d:\tp04_materias-20161118t222440z\tp04_materias\materias.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

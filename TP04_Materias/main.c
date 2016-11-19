@@ -28,16 +28,78 @@
 
 int main()
 {
+    /*
+        char buf [5];
+    scanf("%5s", buf);
+    printf("%s", buf);
+    */
     ArrayList* pListMaterias;
     Materias* pMaterias;
 
     char seguir='s';
     int opcion=0;
     char buffer[4000];
-    char menu[]= "1. Alta de materia.\n2. Modificar materia.\n3. Baja de materia.\n4. Alta Clase.\n5. Modificar clase.\n6. Baja de clase.\n7. Salir.\n";
-    //char subMenu[]= "1. \n";
+    char menu[]= "1. Alta de materia.\n2. Modificar materia.\n3. Baja de materia.\n4. Alta Clase.\n5. Modificar clase.\n6. Baja de clase.\n7. Guardar y Salir.\n";
+//char subMenu[]= "1. \n";
     char mensaje[]="Ingrese una opcion: ";
     pListMaterias = al_newArrayList();
+/*
+    FILE *f;
+    int i;
+    int cantidad;
+
+    pMaterias* m0 = materias_saveData (1, "Programacion","TP", 116, 28)
+    pMaterias* m1 = materias_saveData (2, "Laboratorio","TP", 116, 28);
+    pMaterias* m2 = materias_saveData (3, "Matematica","TP", 87, 28);
+    pMaterias* m3 = materias_saveData (4, "Ingles","TP", 28, 14);
+    pMaterias* m4 = materias_saveData (5, "SPD","TP", 46, 14);
+
+    pListMaterias->add(pListMaterias, m0);
+    pListMaterias->add(pListMaterias, m1);
+    pListMaterias->add(pListMaterias, m2);
+    pListMaterias->add(pListMaterias, m3);
+    pListMaterias->add(pListMaterias, m4);
+
+    f = fopen("Materias.dat", "wb");
+    if(f != NULL)
+    {
+        cantidad = pListMaterias->len(pListMaterias);
+        for(i=0; i< cantidad; i++)
+        {
+            fwrite((Materias*)pListMaterias->get(pListMaterias, i), sizeof(Materias), 1, f);
+        }
+        fclose(f);
+        printf("Archivo guardado con exito\n\n");
+    }
+
+    ArrayList *lista2 = al_newArrayList();
+
+    f = fopen("Materias.dat", "rb");
+    if(f!=NULL)
+    {
+        while(!feof(f))
+        {
+            aux = (Materias*)malloc(sizeof(Materias));
+            if(aux !=NULL)
+            {
+                if(fread(aux, sizeof(Materias), 1, f)==1)
+                    lista2->add(lista2, aux);
+            }
+        }
+        fclose(f);
+
+        printf("Archivo levantado con exito\n\n");
+    }
+
+    printf("Muestro empleados\n\n");
+
+    for(i=0; i<lista2->len(lista2); i++)
+    {
+        printEmployee(lista2->get(lista2,i));
+    }
+
+    return 0;
+    }*/
 
     do
     {
