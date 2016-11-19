@@ -27,3 +27,126 @@
 
 1479165442 d:\arraylist_v7\tp04_materias\clases.h
 
+1479154746 source:c:\users\sabrina\downloads\programacion1-master (5)\programacion1-master\tp04_materias\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"arraylist.h"
+
+1479154746 c:\users\sabrina\downloads\programacion1-master (5)\programacion1-master\tp04_materias\arraylist.h
+
+1479154746 source:c:\users\sabrina\downloads\programacion1-master (5)\programacion1-master\tp04_materias\clases.c
+
+1479436985 source:c:\users\sabrina\downloads\programacion1-master (5)\programacion1-master\tp04_materias\materias.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"arraylist.h"
+	"materias.h"
+	"clases.h"
+	"validaciones.h"
+
+1479435529 c:\users\sabrina\downloads\programacion1-master (5)\programacion1-master\tp04_materias\materias.h
+
+1479154746 c:\users\sabrina\downloads\programacion1-master (5)\programacion1-master\tp04_materias\clases.h
+
+1479436237 source:c:\users\sabrina\downloads\programacion1-master (5)\programacion1-master\tp04_materias\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"arraylist.h"
+	"materias.h"
+	"validaciones.h"
+
+1479437467 c:\users\sabrina\downloads\programacion1-master (5)\programacion1-master\tp04_materias\validaciones.h
+
+1479437467 source:c:\users\sabrina\downloads\programacion1-master (5)\programacion1-master\tp04_materias\validaciones.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"arraylist.h"
+	"materias.h"
+	"validaciones.h"
+
+1479419930 source:c:\users\alumno\downloads\tp04_materias-20161118t222440z\tp04_materias\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"arraylist.h"
+
+1479419930 c:\users\alumno\downloads\tp04_materias-20161118t222440z\tp04_materias\arraylist.h
+
+1479419930 source:c:\users\alumno\downloads\tp04_materias-20161118t222440z\tp04_materias\clases.c
+
+1479419930 source:c:\users\alumno\downloads\tp04_materias-20161118t222440z\tp04_materias\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"arraylist.h"
+	"materias.h"
+	"validaciones.h"
+
+1479419930 c:\users\alumno\downloads\tp04_materias-20161118t222440z\tp04_materias\materias.h
+
+1479419934 c:\users\alumno\downloads\tp04_materias-20161118t222440z\tp04_materias\validaciones.h
+
+1479510302 source:c:\users\alumno\downloads\tp04_materias-20161118t222440z\tp04_materias\materias.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"arraylist.h"
+	"materias.h"
+	"clases.h"
+	"validaciones.h"
+
+1479419930 c:\users\alumno\downloads\tp04_materias-20161118t222440z\tp04_materias\clases.h
+
+1479419934 source:c:\users\alumno\downloads\tp04_materias-20161118t222440z\tp04_materias\validaciones.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"arraylist.h"
+	"materias.h"
+	"validaciones.h"
+
+1479419930 source:d:\tp04_materias-20161118t222440z\tp04_materias\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"arraylist.h"
+
+1479419930 d:\tp04_materias-20161118t222440z\tp04_materias\arraylist.h
+
+1479419930 source:d:\tp04_materias-20161118t222440z\tp04_materias\clases.c
+
+1479560480 source:d:\tp04_materias-20161118t222440z\tp04_materias\main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"arraylist.h"
+	"materias.h"
+	"validaciones.h"
+
+1479563650 d:\tp04_materias-20161118t222440z\tp04_materias\materias.h
+
+1479419934 d:\tp04_materias-20161118t222440z\tp04_materias\validaciones.h
+
+1479517721 source:d:\tp04_materias-20161118t222440z\tp04_materias\validaciones.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"arraylist.h"
+	"materias.h"
+	"validaciones.h"
+
+1479563498 source:d:\tp04_materias-20161118t222440z\tp04_materias\materias.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"arraylist.h"
+	"materias.h"
+	"clases.h"
+	"validaciones.h"
+
+1479419930 d:\tp04_materias-20161118t222440z\tp04_materias\clases.h
+

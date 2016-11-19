@@ -12,6 +12,10 @@ struct
 }typedef Materias;
 
 
-
-
-
+Materias* materias_add(Materias* returnAux, int id, char name[],char carrera[], int clases, int horas);
+Materias* materias_new();
+int get_nextId();
+int materias_alta(ArrayList* pListMaterias);
+int materias_getId(ArrayList* pListMaterias);
+void materias_list (ArrayList* pListMaterias);
+int materias_getData (Materias* auxMateria);

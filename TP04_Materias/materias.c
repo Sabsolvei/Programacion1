@@ -4,77 +4,154 @@
 #include "arraylist.h"
 #include "materias.h"
 #include "clases.h"
+#include "validaciones.h"
 
 static int id = 0;
-
-Materias* materias_add(Materias* returnAux, int id, char name[],char carrera[], int clases, int horas)
-{
-    returnAux->id=id;
-    strcpy(returnAux->name,name);
-    strcpy(returnAux->carrera,carrera);
-    returnAux->id=id;
-    returnAux->horas=horas;
-
-    return returnAux;
-}
 
 Materias* materias_new()
 {
     Materias* returnAux = NULL;
-    returnAux=(Materias*)malloc(sizeof(returnAux));
+    returnAux=(Materias*)malloc(sizeof(Materias*));
     return returnAux;
 }
 
 int get_nextId ()
 {
-
     id++;
-    return id-1;
+    return id;
 }
 
-void materias_alta(ArrayList* pListMaterias, Materias* auxMateria)
+int materias_alta(ArrayList* pListMaterias)
 {
-    int id;
-    char name[51];
-    char carrera[51];
-    int clases;
-    int horas;
-    int isEmpty;
-
-    printf("Ingrese el Id: ");
-    scanf("%d",&id);
-    printf("Ingrese el nombre: ");
-    fflush(stdin);
-    gets(name);
-    printf("Ingrese la carrera: ");
-    fflush(stdin);
-    gets(carrera);
-    printf("Ingrese cantidad de horas: ");
-    scanf("%d",&horas);
-    printf("Ingrese la cantidad de clases: ");
-    scanf("%d",&clases);
-
-
-    if (auxMateria != NULL)
+    int retorno = -1;
+    Materias* pMateria = NULL;
+    pMateria = materias_new();
+    if (pMateria != NULL)
     {
-        auxMateria = materias_add(auxMateria, id, name, carrera, clases, horas);
-        pListMaterias->add(pListMaterias, auxMateria);
+        if(materias_getData(pMateria) == 0)
+        {
+            pMateria->id = get_nextId();
+             printf("EN EL ALTA %p\n", &pMateria->clases);
+             printf("Id: %d -- Nombre: %s -- Carrera: %s -- Clases: %d -- Horas: %d\n", pMateria->id, pMateria->name, pMateria->carrera, pMateria->clases, pMateria->horas);
+            pListMaterias->add(pListMaterias, pMateria);
+
+            printf("%d",pListMaterias->len(pListMaterias));
+            retorno = 0;
+        }
     }
-    //printf("Id: %d --Nombre:  %s\n",auxMateria->id, auxMateria->name);
-    //printf("%d",pListMaterias->size);
+    return retorno;
+}
+
+int materias_getData (Materias* auxMateria)
+{
+    char buffer[4000];
+    int retorno = -1, flag = 1;
+
+    if(auxMateria != NULL)
+    {
+        system("cls");
+        /*if(getInt("Ingrese el Id: ", buffer))
+        {
+            auxMateria->id = atoi(buffer);
+            flag = 1;
+        }
+        else
+        {
+            flag = 0;
+        }*/
+        if(flag == 1 && getStringLetras("Ingrese el nombre: ", buffer, 51))
+        {
+            strcpy(auxMateria->name, buffer);
+            printf("%s\n", auxMateria->name);
+        }
+        else
+        {
+            flag = 0;
+        }
+        if(flag == 1 && getStringLetras("Ingrese la carrera: ", buffer, 51))
+        {
+            strcpy(auxMateria->carrera, buffer);
+            printf("%s\n", auxMateria->carrera);
+        }
+        else
+        {
+            flag = 0;
+        }
+        //system("cls");
+        if(flag == 1 && getInt("Ingrese cantidad de horas: ", buffer))
+        {
+            auxMateria->horas = atoi(buffer);
+            printf("%d\n", auxMateria->horas);
+        }
+        else
+        {
+            flag = 0;
+        }
+        //system("cls");
+        if(flag == 1 && getInt("Ingrese cantidad de clases: ", buffer))
+        {
+            auxMateria->clases = atoi(buffer);
+            printf("%d\n", auxMateria->clases);
+        }
+        else
+        {
+            flag = 0;
+        }
+    }
+    if(flag == 1)
+        retorno = 0;
+
+    return retorno;
 }
 
 int materias_getId(ArrayList* pListMaterias)
 {
     int i;
     int indiceMaximo = 0;
-    Materias* auxMateria;
+    Materias* pAuxMateria;
 
     for (i=0; i<pListMaterias->size; i++)
     {
-        auxMateria = pListMaterias->get(pListMaterias, i);
-        if (auxMateria->id > indiceMaximo);
-            indiceMaximo = auxMateria->id;
+        pAuxMateria = pListMaterias->get(pListMaterias, i);
+        if (pAuxMateria->id > indiceMaximo);
+        indiceMaximo = pAuxMateria->id;
     }
     return indiceMaximo;
 }
+
+void materias_list (ArrayList* pListMaterias)
+{
+    int i = 0;
+    Materias* pAuxMateria;
+   // pAuxMateria = materias_new();
+
+    //pAuxMateria =(Materias*) pListMaterias->get(pListMaterias, i);
+
+ // printf("Id: %d -- Nombre: %s -- Carrera: %s -- Clases: %d -- Horas: %d\n", pAuxMateria->id, pAuxMateria->name, pAuxMateria->carrera, pAuxMateria->clases, pAuxMateria->horas);
+
+    for(i=0; i<pListMaterias->len(pListMaterias); i++)
+    {
+
+        if(pAuxMateria != NULL)
+        {
+            pAuxMateria =(Materias*) pListMaterias->get(pListMaterias, i);
+            printf("EN LA LISTA %p--%p--%p\n",pAuxMateria->carrera, &pAuxMateria->clases, &pAuxMateria->horas);
+            printf("Id: %d -- Nombre: %s -- Carrera: %s -- Clases: %d -- Horas: %d\n", pAuxMateria->id, pAuxMateria->name, pAuxMateria->carrera, pAuxMateria->clases, pAuxMateria->horas);
+        }
+    }
+}
+
+int materias_modificar(ArrayList* pListMaterias)
+{
+    char mensaje = "Ingrese el Id de la materia que desea modificar: \n";
+    char buffer[4000];
+    int index, retorno = -1;
+    if(getInt(mensaje, buffer))
+    {
+        index = atoi(buffer);
+        if(pListMaterias->contains(pListMaterias, pListMaterias->get(pListMaterias, index))==1);
+        retorno = 0;
+    }
+    return retorno;
+}
+
